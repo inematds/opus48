@@ -1,37 +1,246 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Relatório · Claude Opus 4.8</title>
-  <style>
-    :root{--bg:#0f0e0c;--card:#1a1815;--ink:#f5f1ea;--mut:#a39e94;--acc:#d97757;--line:#2a2723}
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
-    .wrap{max-width:760px;margin:0 auto;padding:80px 24px}
-    .tag{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);border:1px solid var(--line);border-radius:999px;padding:5px 12px;margin-bottom:24px}
-    h1{font-size:clamp(32px,6vw,52px);line-height:1.1;letter-spacing:-.02em;margin-bottom:16px}
-    .sub{color:var(--mut);font-size:18px;max-width:60ch}
-    .status{margin-top:48px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px}
-    .status h2{font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:var(--mut);margin-bottom:12px}
-    .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--acc);margin-right:8px;animation:p 1.6s infinite}
-    @keyframes p{0%,100%{opacity:1}50%{opacity:.3}}
-    footer{margin-top:64px;color:var(--mut);font-size:13px;border-top:1px solid var(--line);padding-top:24px}
-    a{color:var(--acc)}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Opus 4.8 — Relatório de Lançamento</title>
+<style>
+  :root{
+    --bg:#0f0e0c;--bg2:#16140f;--card:#1a1815;--ink:#f5f1ea;--mut:#a39e94;
+    --acc:#d97757;--acc2:#e89b80;--line:#2a2723;--ok:#6fae6f;--warn:#d9b25a
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:840px;margin:0 auto;padding:0 24px}
+  a{color:var(--acc2);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  header{padding:88px 0 56px;border-bottom:1px solid var(--line);background:radial-gradient(120% 80% at 50% -20%,rgba(217,119,87,.14),transparent 60%)}
+  .tag{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border:1px solid var(--line);border-radius:999px;padding:6px 14px;margin-bottom:22px}
+  h1{font-size:clamp(36px,7vw,60px);line-height:1.05;letter-spacing:-.025em;margin-bottom:18px}
+  .lede{color:var(--mut);font-size:19px;max-width:64ch}
+  .meta{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px}
+  .pill{font-size:13px;color:var(--mut);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 12px}
+  .pill b{color:var(--ink);font-weight:600}
+
+  section{padding:52px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:24px}
+  h3{font-size:22px;letter-spacing:-.01em;margin:0 0 10px}
+  p{margin-bottom:16px}
+  p.small,li.small{color:var(--mut);font-size:14px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .box .k{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--mut);margin-bottom:8px}
+  .box .v{font-size:26px;font-weight:600;letter-spacing:-.02em}
+  .box .v small{font-size:14px;color:var(--mut);font-weight:400}
+
+  ul.feat{list-style:none;display:grid;gap:14px}
+  ul.feat li{padding-left:26px;position:relative}
+  ul.feat li::before{content:"";position:absolute;left:0;top:9px;width:9px;height:9px;border-radius:50%;background:var(--acc)}
+  ul.feat b{color:var(--ink)}
+
+  table{width:100%;border-collapse:collapse;font-size:14.5px;margin:4px 0 8px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line)}
+  th{color:var(--mut);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+  td.n{font-variant-numeric:tabular-nums;text-align:right}
+  tr td:first-child{color:var(--ink);font-weight:500}
+  .win{color:var(--acc2);font-weight:700}
+  .cap{caption-side:bottom;text-align:left;color:var(--mut);font-size:12.5px;padding-top:12px;font-style:italic}
+
+  .verdict{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--ok);border:1px solid rgba(111,174,111,.4);border-radius:6px;padding:2px 8px;vertical-align:middle;margin-left:8px}
+
+  .note{background:var(--bg2);border-left:3px solid var(--warn);border-radius:0 10px 10px 0;padding:18px 20px}
+  .note h3{font-size:15px;color:var(--warn);margin-bottom:8px}
+  .note ul{margin:0;padding-left:18px}
+  .note li{color:var(--mut);font-size:14px;margin-bottom:6px}
+
+  ol.src{padding-left:22px;display:grid;gap:9px}
+  ol.src li{font-size:14px;color:var(--mut);word-break:break-word}
+  ol.src .q{font-size:11px;text-transform:uppercase;letter-spacing:.05em;border:1px solid var(--line);border-radius:5px;padding:1px 7px;margin-left:6px;color:var(--mut)}
+  .q.primary{color:var(--ok);border-color:rgba(111,174,111,.4)}
+
+  footer{padding:48px 0 80px;color:var(--mut);font-size:13px}
+  footer .big{font-size:15px;color:var(--ink);margin-bottom:8px}
+  .toc{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:20px;font-size:14px}
+</style>
 </head>
 <body>
+
+<header>
   <div class="wrap">
     <span class="tag">Anthropic · Relatório de Pesquisa</span>
     <h1>Claude Opus 4.8</h1>
-    <p class="sub">Relatório completo sobre o lançamento — novidades, benchmarks, preços e comparações.</p>
-    <div class="status">
-      <h2>Status</h2>
-      <p><span class="dot"></span>Pesquisa multi-fonte em andamento. O relatório final será publicado aqui em instantes.</p>
+    <p class="lede">O modelo mais capaz da Anthropic até hoje, lançado em 28 de maio de 2026 — o ciclo de atualização mais rápido da família 4.x. Foco em codificação agêntica de longo horizonte, autonomia e janela de 1M de tokens.</p>
+    <div class="meta">
+      <span class="pill"><b>Lançamento:</b> 28/05/2026 (quinta-feira)</span>
+      <span class="pill"><b>API ID:</b> claude-opus-4-8</span>
+      <span class="pill"><b>Contexto:</b> 1M tokens</span>
+      <span class="pill"><b>Verificação:</b> 25/25 claims confirmados · 0 refutados</span>
     </div>
-    <footer>
-      Gerado via deep-research · <a href="https://github.com/inematds/opus48">github.com/inematds/opus48</a>
-    </footer>
+    <div class="toc">
+      <a href="#resumo">Resumo</a><a href="#specs">Especificações</a><a href="#novidades">Novidades</a>
+      <a href="#bench">Benchmarks</a><a href="#preco">Preços</a><a href="#comp">Comparação</a>
+      <a href="#recep">Recepção</a><a href="#ressalvas">Ressalvas</a><a href="#fontes">Fontes</a>
+    </div>
   </div>
+</header>
+
+<section id="resumo">
+  <div class="wrap">
+    <h2>Resumo executivo</h2>
+    <p>A Anthropic lançou o <b>Claude Opus 4.8</b> (<code>claude-opus-4-8</code>) em <b>28 de maio de 2026</b>, cerca de <b>41–42 dias</b> após o Opus 4.7 — o intervalo mais curto da família 4.x, cujos ciclos anteriores rondavam 70–73 dias. A imprensa (TechCrunch) liga o ritmo acelerado à recepção morna do 4.7, que boa parte da comunidade considerou uma regressão.</p>
+    <p>É um <b>modelo de raciocínio híbrido</b> com <b>1M de tokens de contexto</b> (200k no Microsoft Foundry), <b>128k de saída</b> e pensamento adaptativo, posicionado para <b>codificação agêntica de longo horizonte</b> e tarefas autônomas que duram horas. Nos benchmarks divulgados pela própria Anthropic, supera o 4.7, o GPT-5.5 e o Gemini 3.1 Pro. <b>Preços regulares inalterados</b> em relação ao 4.7; novo <b>fast mode</b> 2,5× mais rápido e ~3× mais barato que o do 4.7. Disponível desde o dia do lançamento em claude.ai, API, Amazon Bedrock, Google Vertex AI, Microsoft Foundry e GitHub Copilot.</p>
+  </div>
+</section>
+
+<section id="specs">
+  <div class="wrap">
+    <h2>Especificações principais</h2>
+    <div class="grid">
+      <div class="box"><div class="k">Janela de contexto</div><div class="v">1M <small>tokens (200k no Foundry)</small></div></div>
+      <div class="box"><div class="k">Saída máxima</div><div class="v">128k <small>tokens</small></div></div>
+      <div class="box"><div class="k">Tipo</div><div class="v">Híbrido <small>raciocínio adaptativo</small></div></div>
+      <div class="box"><div class="k">Preço entrada / saída</div><div class="v">$5 / $25 <small>por M tokens</small></div></div>
+    </div>
+    <p class="small" style="margin-top:18px">Melhorias comportamentais sobre o 4.7 (documentação oficial): codificação agêntica de longo horizonte (melhor manejo de contexto longo, menos compactações e melhor recuperação após compactação), calibração do esforço de raciocínio e <i>tool triggering</i> mais confiável (menos chamadas de ferramenta puladas). <span class="verdict">3-0 ✓</span></p>
+  </div>
+</section>
+
+<section id="novidades">
+  <div class="wrap">
+    <h2>Principais novidades e recursos</h2>
+    <ul class="feat">
+      <li><b>Controle de esforço no claude.ai</b> — dial de quanto esforço o modelo aplica à tarefa (níveis Low / Medium / High / Extra / Max; padrão <i>high</i>).</li>
+      <li><b>Dynamic Workflows</b> (research preview, no Claude Code) — o modelo planeja o trabalho e dispara centenas de subagentes paralelos numa única sessão, com verificação de saídas; com o 4.8 os agentes rodam por mais tempo.</li>
+      <li><b>Fast mode</b> — produz tokens a ~2,5× a velocidade normal, e ~3× mais barato que o fast mode do 4.7.</li>
+      <li><b>API Messages</b> — aceita <code>system</code> inline, sem necessidade de header beta.</li>
+      <li><b>~4× menos propenso</b> (segundo a Anthropic) a deixar passar falhas no próprio código que o antecessor.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="bench">
+  <div class="wrap">
+    <h2>Benchmarks de desempenho</h2>
+    <table>
+      <thead><tr><th>Benchmark</th><th class="n">Opus 4.8</th><th class="n">Opus 4.7</th><th class="n">GPT-5.5</th><th class="n">Gemini 3.1 Pro</th></tr></thead>
+      <tbody>
+        <tr><td>SWE-bench Pro</td><td class="n win">69,2%</td><td class="n">64,3%</td><td class="n">58,6%</td><td class="n">54,2%</td></tr>
+        <tr><td>SWE-bench Verified</td><td class="n win">88,6%</td><td class="n">87,6%</td><td class="n">—</td><td class="n">—</td></tr>
+        <tr><td>Uso de computador (OSWorld)</td><td class="n win">83,4%</td><td class="n">—</td><td class="n">78,7%</td><td class="n">76,2%</td></tr>
+        <tr><td>Online-Mind2Web</td><td class="n win">84%</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+        <tr><td>HLE (com ferramentas)</td><td class="n">57,9%</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+        <tr><td>USAMO (matemática)</td><td class="n">96,7%</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+        <tr><td>GraphWalks 1M (F1)</td><td class="n">68,1%</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+        <tr><td>Artificial Analysis Index</td><td class="n">61,4</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+      </tbody>
+      <caption class="cap">Números auto-reportados pela Anthropic, com comparações de concorrentes de primeira-parte. <span class="verdict">3-0 ✓</span> &nbsp;Ver ressalvas sobre auditoria independente.</caption>
+    </table>
+  </div>
+</section>
+
+<section id="preco">
+  <div class="wrap">
+    <h2>Preços e acesso (API)</h2>
+    <table>
+      <thead><tr><th>Item</th><th class="n">Valor (por M tokens)</th></tr></thead>
+      <tbody>
+        <tr><td>Entrada (regular)</td><td class="n">US$ 5,00</td></tr>
+        <tr><td>Saída (regular)</td><td class="n">US$ 25,00</td></tr>
+        <tr><td>Cache write (5 min)</td><td class="n">US$ 6,25</td></tr>
+        <tr><td>Cache write (1 h)</td><td class="n">US$ 10,00</td></tr>
+        <tr><td>Cache hit</td><td class="n">US$ 0,50</td></tr>
+        <tr><td>Fast mode — entrada / saída</td><td class="n">US$ 10,00 / US$ 50,00</td></tr>
+      </tbody>
+      <caption class="cap">Preços regulares idênticos aos do Opus 4.7 e 4.6. Até 90% de economia com prompt caching e 50% com batch. <span class="verdict">3-0 ✓</span></caption>
+    </table>
+    <p class="small"><b>Disponibilidade no dia 1:</b> claude.ai · Claude API (<code>claude-opus-4-8</code>) · Amazon Bedrock / Claude Platform on AWS · Google Vertex AI · Microsoft Foundry (contexto limitado a 200k) · GitHub Copilot. <span class="verdict">3-0 ✓</span></p>
+  </div>
+</section>
+
+<section id="comp">
+  <div class="wrap">
+    <h2>Comparação com versões anteriores</h2>
+    <table>
+      <thead><tr><th>Modelo</th><th>Lançamento</th><th>Intervalo</th><th>Observação</th></tr></thead>
+      <tbody>
+        <tr><td>Opus 4.5</td><td>24/11/2025</td><td>—</td><td>—</td></tr>
+        <tr><td>Opus 4.6</td><td>05/02/2026</td><td>~73 dias</td><td>—</td></tr>
+        <tr><td>Opus 4.7</td><td>16/04/2026</td><td>~70 dias</td><td>Recepção morna; ~85% no r/Anthropic chamou de regressão</td></tr>
+        <tr><td><b>Opus 4.8</b></td><td><b>28/05/2026</b></td><td><span class="win">~42 dias</span></td><td>Ciclo mais rápido da família 4.x</td></tr>
+      </tbody>
+      <caption class="cap">Fontes citam "41 dias" por arredondamento; o intervalo real entre 16/04 e 28/05 é de 42 dias. <span class="verdict">3-0 ✓</span></caption>
+    </table>
+    <p class="small">A Anthropic descreve o 4.8 como uma "melhoria modesta, porém tangível" sobre o 4.7 — caracterização corroborada de forma independente (Vellum, The Decoder, Simon Willison) pelos ganhos incrementais nos benchmarks.</p>
+  </div>
+</section>
+
+<section id="recep">
+  <div class="wrap">
+    <h2>Recepção da comunidade</h2>
+    <p>O lançamento veio rápido na esteira da recepção morna do Opus 4.7, que parte expressiva da comunidade (cerca de 85% em uma enquete do r/Anthropic) classificou como regressão, inclusive com queda no benchmark MRCR em relação ao 4.6. A cobertura inicial do 4.8 é majoritariamente de imprensa de lançamento — The Decoder o resume como "uma melhoria modesta, mas tangível, que supera o GPT-5.5 na maioria dos benchmarks". Testes independentes em pequena escala (TrueFoundry, 50 problemas; um teste de 20 tarefas em long-context na Towards AI) apontaram na mesma direção dos números oficiais, mas ainda não há auditoria independente em larga escala.</p>
+  </div>
+</section>
+
+<section id="ressalvas">
+  <div class="wrap">
+    <h2>Ressalvas e perguntas em aberto</h2>
+    <div class="note">
+      <h3>⚠ Ressalvas metodológicas</h3>
+      <ul>
+        <li>Quase todos os benchmarks são <b>auto-reportados pela Anthropic</b>, com comparações de concorrentes de primeira-parte — sem auditoria independente em escala (apenas testes pequenos: TrueFoundry, 50 problemas).</li>
+        <li>O posicionamento ("mais capaz", "melhoria modesta porém tangível") é <b>framing de fornecedor/marketing</b>, ainda que corroborado por terceiros.</li>
+        <li>A ligação entre o lançamento acelerado e a recepção do 4.7 é <b>especulativa</b> (atribuída à TechCrunch).</li>
+        <li>Relatório produzido em <b>30/05/2026</b>, 2 dias após o lançamento — é cobertura de lançamento, não retrospectiva. A tabela de benchmarks da Anthropic é uma imagem; algumas verificações dependeram de resumos de busca.</li>
+      </ul>
+    </div>
+    <h3 style="margin-top:28px;font-size:16px">Perguntas em aberto</h3>
+    <ul class="feat" style="margin-top:12px">
+      <li class="small">Como o 4.8 se sustenta em <b>benchmarks independentes head-to-head</b> contra GPT-5.5 e Gemini 3.1 Pro?</li>
+      <li class="small">Qual a recepção real da comunidade nas semanas seguintes — resolve as queixas do 4.7?</li>
+      <li class="small">Quais os limites e a data de GA das features em research preview (Dynamic Workflows, fast mode)?</li>
+      <li class="small">O fast mode 3× mais barato vale em todas as plataformas, e qual o impacto do limite de 200k no Foundry?</li>
+    </ul>
+  </div>
+</section>
+
+<section id="fontes">
+  <div class="wrap">
+    <h2>Fontes (20 · 6 primárias)</h2>
+    <ol class="src">
+      <li><a href="https://www.anthropic.com/news/claude-opus-4-8">anthropic.com — Anúncio oficial Claude Opus 4.8</a><span class="q primary">primária</span></li>
+      <li><a href="https://www.anthropic.com/claude/opus">anthropic.com — Página do produto Opus</a><span class="q primary">primária</span></li>
+      <li><a href="https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8">platform.claude.com — What's new in Opus 4.8 (docs)</a><span class="q primary">primária</span></li>
+      <li><a href="https://platform.claude.com/docs/en/about-claude/pricing">platform.claude.com — Pricing (docs)</a><span class="q primary">primária</span></li>
+      <li><a href="https://aws.amazon.com/blogs/machine-learning/claude-opus-4-8-is-now-available-on-aws/">aws.amazon.com — Opus 4.8 na AWS (blog)</a><span class="q primary">primária</span></li>
+      <li><a href="https://techcrunch.com/2026/05/28/anthropic-releases-opus-4-8-with-new-dynamic-workflow-tool/">techcrunch.com — Release do Opus 4.8 com Dynamic Workflows</a><span class="q">secundária</span></li>
+      <li><a href="https://www.vellum.ai/blog/claude-opus-4-8-benchmarks-explained">vellum.ai — Benchmarks explicados</a><span class="q">secundária</span></li>
+      <li><a href="https://the-decoder.com/anthropic-ships-claude-opus-4-8-as-a-modest-but-tangible-improvement-that-tops-gpt-5-5-in-most-benchmarks/">the-decoder.com — "modesta mas tangível, supera GPT-5.5"</a><span class="q">secundária</span></li>
+      <li><a href="https://www.digitalapplied.com/blog/claude-opus-4-8-release-dynamic-workflows-2026">digitalapplied.com — Release & Dynamic Workflows</a><span class="q">secundária</span></li>
+      <li><a href="https://exame.com/inteligencia-artificial/claude-opus-4-8-e-lancado-o-que-muda-no-novo-modelo-de-ia-da-anthropic/">exame.com — O que muda no novo modelo</a><span class="q">secundária</span></li>
+      <li><a href="https://tokenmix.ai/blog/claude-opus-4-8-review-pricing-benchmark">tokenmix.ai — Review, preços e benchmark</a><span class="q">secundária</span></li>
+      <li><a href="https://llm-stats.com/blog/research/claude-opus-4-8-launch">llm-stats.com — Análise de lançamento</a><span class="q">secundária</span></li>
+      <li><a href="https://artificialanalysis.ai/models/claude-opus-4-8/providers">artificialanalysis.ai — Provedores e índice</a><span class="q">secundária</span></li>
+      <li><a href="https://openrouter.ai/anthropic/claude-opus-4.8">openrouter.ai — Opus 4.8 (Fast)</a><span class="q">secundária</span></li>
+      <li><a href="https://wavespeed.ai/blog/posts/opus-4-8/">wavespeed.ai — Opus 4.8</a><span class="q">secundária</span></li>
+      <li><a href="https://www.requesty.ai/models/vertex/claude-opus-4-8-eu">requesty.ai — Opus 4.8 no Vertex (EU)</a><span class="q">secundária</span></li>
+      <li><a href="https://www.tomsguide.com/ai/claude-opus-4-8-just-launched-and-anthropic-says-its-far-less-likely-to-fake-answers">tomsguide.com — "menos propenso a forjar respostas"</a><span class="q">secundária</span></li>
+      <li><a href="https://pub.towardsai.net/i-tested-opus-4-8-vs-gpt-5-5-vs-gemini-3-1-pro-on-20-tasks-opus-embarrassed-both-on-long-context-00a1092ad365">towardsai.net — Teste 4.8 vs GPT-5.5 vs Gemini 3.1 Pro</a><span class="q">blog</span></li>
+      <li><a href="https://www.vellum.ai/blog/claude-opus-4-7-benchmarks-explained">vellum.ai — Benchmarks do Opus 4.7 (comparação)</a><span class="q">blog</span></li>
+      <li><a href="https://news.ycombinator.com/item?id=48311647">news.ycombinator.com — Discussão na comunidade</a><span class="q">fórum</span></li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="big">Relatório gerado por pesquisa multi-fonte com verificação adversarial.</p>
+    <p>Metodologia: 5 ângulos de busca · 20 fontes coletadas · 100 alegações extraídas · 25 verificadas por votação adversarial 3-vias · <b>25 confirmadas, 0 refutadas</b>. Síntese em 30/05/2026.</p>
+    <p style="margin-top:10px"><a href="https://github.com/inematds/opus48">github.com/inematds/opus48</a> · As informações refletem o estado público 2 dias após o lançamento (28/05/2026).</p>
+  </div>
+</footer>
+
 </body>
 </html>
