@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 2.2 · Benchmarks de código (SWE-bench) | Opus 4.8</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/30 { background-color: rgba(37,99,235,0.10); }
+    html:not(.dark) .bg-blue-900\/40 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(220,38,38,0.07); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <!-- NAV PRINCIPAL -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between items-center h-14">
+      <div class="flex items-center space-x-4">
+        <a href="../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300"><span class="text-2xl">🤖</span><span class="font-bold text-lg hidden sm:inline">Opus 4.8</span></a>
+        <span class="text-neutral-600">|</span>
+        <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+      </div>
+      <div class="flex items-center space-x-1 sm:space-x-2">
+        <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Capacidades</span></a>
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10"><span class="sm:hidden">T2</span><span class="hidden sm:inline">O que mudou</span></a>
+        <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Na prática</span></a>
+        <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        </button>
+      </div>
+    </div></div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../index.html" class="hover:text-blue-400">Início</a><span>/</span>
+      <a href="index.html" class="hover:text-blue-400">Trilha 2</a><span>/</span><span class="text-blue-400">Módulo 2.2</span>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">MÓDULO 2.2</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">💻 Benchmarks de código (SWE-bench)</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Como o Opus 4.8 se saiu nos principais benchmarks de programação, o que esses números significam na prática — e por que você deve lê-los com ceticismo saudável.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">35</div><div class="text-xs text-neutral-400">Min</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Interm.</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Dados</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1: O que é SWE-bench -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">🧪 O que é SWE-bench Pro</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">O SWE-bench é o benchmark mais citado para avaliar IA em tarefas reais de engenharia de software. Não é um quiz de código ou um exercício de algoritmos — são issues verdadeiros extraídos de repositórios open-source populares no GitHub, com contexto real e testes reais.</p>
+
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🎯</span> Conceito Principal: o que o benchmark realmente testa</h3>
+        <p class="text-neutral-300 mb-4">Cada instância do SWE-bench apresenta ao modelo: (1) um repositório real com todo o histórico de código, (2) um bug report ou feature request real, e (3) uma suíte de testes existente. A tarefa é produzir um patch que faça os testes passarem. A pontuação é a taxa de patches bem-sucedidos.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="text-sm font-semibold text-blue-300 mb-2">SWE-bench Verified</p>
+            <p class="text-neutral-400 text-sm">Versão original com ~500 instâncias, todas validadas por humanos para confirmar que o problema é bem definido e tem solução clara.</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="text-sm font-semibold text-blue-300 mb-2">SWE-bench Pro</p>
+            <p class="text-neutral-400 text-sm">Versão mais recente e difícil — issues maiores, mais contexto, mais arquivos para navegar, problemas de maior complexidade estrutural.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">📊</span> Por que SWE-bench importa mais que outros benchmarks de código</h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Usa repositórios reais — não exercícios sintéticos criados para testar modelos</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Exige leitura de contexto extenso, rastreamento de causa raiz e escrita de código que não quebre o que funciona</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>É verificável automaticamente: o patch funciona ou não funciona nos testes</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2: SWE-bench Pro 69,2% -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">📊 SWE-bench Pro: 69,2% vs concorrentes</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">No SWE-bench Pro — a versão mais difícil — o Opus 4.8 alcança <strong class="text-blue-400">69,2%</strong>. Isso representa uma margem considerável sobre os competidores diretos e uma evolução clara em relação ao próprio 4.7.</p>
+
+      <!-- Tabela comparativa -->
+      <div class="overflow-x-auto mb-6">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="border-b border-dark-600">
+              <th class="text-left py-3 px-4 text-neutral-400 font-semibold text-sm">Modelo</th>
+              <th class="text-right py-3 px-4 text-neutral-400 font-semibold text-sm">SWE-bench Pro</th>
+              <th class="text-right py-3 px-4 text-neutral-400 font-semibold text-sm">Diferença vs 4.8</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-dark-600">
+            <tr class="bg-blue-900/20">
+              <td class="py-3 px-4 font-semibold text-blue-400">Claude Opus 4.8</td>
+              <td class="py-3 px-4 text-right font-bold text-blue-400 text-lg">69,2%</td>
+              <td class="py-3 px-4 text-right text-blue-400 text-sm">— (referência)</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 text-neutral-300">Claude Opus 4.7</td>
+              <td class="py-3 px-4 text-right text-neutral-300">64,3%</td>
+              <td class="py-3 px-4 text-right text-neutral-500 text-sm">−4,9 pp</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 text-neutral-300">GPT-5.5</td>
+              <td class="py-3 px-4 text-right text-neutral-300">58,6%</td>
+              <td class="py-3 px-4 text-right text-neutral-500 text-sm">−10,6 pp</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 text-neutral-300">Gemini 3.1 Pro</td>
+              <td class="py-3 px-4 text-right text-neutral-300">54,2%</td>
+              <td class="py-3 px-4 text-right text-neutral-500 text-sm">−15,0 pp</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Como traduzir pontos percentuais em prática</h3>
+        <p class="text-neutral-300">Uma diferença de 10 pontos percentuais significa que, em 100 bugs típicos do benchmark, o 4.8 resolve ~10 a mais que o GPT-5.5. Em produção, isso pode representar horas de debugging poupadas por sprint. A margem de 15 pp sobre o Gemini 3.1 Pro é ainda mais expressiva.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3: SWE-bench Verified 88,6% -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">✅ SWE-bench Verified: 88,6%</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">O SWE-bench Verified é a versão original — menos problemas, porém todos validados por humanos. O 4.8 marca <strong class="text-blue-400">88,6%</strong>, subindo de 87,6% do 4.7. Uma evolução menor em percentual, mas relevante em escala.</p>
+
+      <!-- Barras de progresso -->
+      <div class="space-y-4 mb-6">
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-semibold text-white">Claude Opus 4.8</span>
+            <span class="text-blue-400 font-bold text-lg">88,6%</span>
+          </div>
+          <div class="w-full bg-dark-700 rounded-full h-3 mb-2">
+            <div class="bg-blue-500 h-3 rounded-full" style="width: 88.6%"></div>
+          </div>
+          <p class="text-xs text-neutral-500">SWE-bench Verified · auto-reportado pela Anthropic</p>
+        </div>
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-semibold text-neutral-300">Claude Opus 4.7</span>
+            <span class="text-neutral-400 font-bold text-lg">87,6%</span>
+          </div>
+          <div class="w-full bg-dark-700 rounded-full h-3 mb-2">
+            <div class="bg-neutral-500 h-3 rounded-full" style="width: 87.6%"></div>
+          </div>
+          <p class="text-xs text-neutral-500">Versão anterior · referência de comparação</p>
+        </div>
+      </div>
+
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">📊</span> O que +1 ponto percentual significa aqui</h3>
+        <p class="text-neutral-300">Em 500 problemas do SWE-bench Verified, a diferença de 87,6% para 88,6% equivale a ~5 problemas extras resolvidos. Parece pouco — mas quando você multiplica por milhões de requisições em produção ao longo de meses, esses 5 problemas por 500 viram um diferencial real de produtividade.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4: Como ler benchmarks -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">🔍 Como ler benchmarks de coding</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Um número alto não garante que o modelo vai resolver seus problemas. Benchmarks capturam uma distribuição específica de problemas — que pode ou não se sobrepor com o que você enfrenta no dia a dia.</p>
+
+      <div class="space-y-4 mb-6">
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+            <span class="text-blue-400 font-bold">A</span>
+          </div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Benchmarks capturam bem: comparação relativa</h4>
+            <p class="text-neutral-300 text-sm">Mesmo que os números absolutos sejam otimistas, a ordenação entre modelos costuma ser informativa. Se o 4.8 supera o GPT-5.5 por 10 pp no SWE-bench, é razoável esperar que ele seja melhor em problemas parecidos com os do benchmark.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+            <span class="text-blue-400 font-bold">B</span>
+          </div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Benchmarks não capturam: o seu domínio</h4>
+            <p class="text-neutral-300 text-sm">O SWE-bench usa Python (Django, Flask, numpy, etc.) e alguns projetos JavaScript. Se você trabalha com uma stack diferente, linguagem menos comum ou codebase com padrões incomuns, os números são menos representativos.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+            <span class="text-blue-400 font-bold">C</span>
+          </div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Benchmarks não capturam: consistência entre execuções</h4>
+            <p class="text-neutral-300 text-sm">Um modelo que resolve 88% dos problemas em uma execução pode não repetir o resultado na segunda. Benchmarks medem a média — e variância alta pode ser um problema sério em produção.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+          <h4 class="font-bold text-blue-400 mb-4">✓ Use benchmarks para</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Eliminar candidatos obviamente fracos</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Ter uma noção de ordenação relativa</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Identificar áreas de força e fraqueza</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Não use benchmarks para</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Decisão final de adoção sem testes próprios</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Prever desempenho em domínio específico</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Justificar ROI para stakeholders internos</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5: Comparação com GPT-5.5 e Gemini -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">⚔️ Comparação com GPT-5.5 e Gemini 3.1 Pro</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Os números do 4.8 representam uma vantagem consistente sobre os principais concorrentes nos benchmarks disponíveis. Veja o panorama completo e o que ele implica.</p>
+
+      <!-- Grid de cards de comparação -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-5 text-center">
+          <div class="text-3xl font-bold text-blue-400 mb-1">69,2%</div>
+          <div class="text-sm font-semibold text-white mb-0.5">Claude Opus 4.8</div>
+          <div class="text-xs text-neutral-500 mb-2">SWE-bench Pro</div>
+          <div class="w-full bg-dark-700 rounded-full h-2 mb-3">
+            <div class="bg-blue-500 h-2 rounded-full" style="width: 100%"></div>
+          </div>
+          <div class="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full inline-block">🥇 1º lugar</div>
+        </div>
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-5 text-center">
+          <div class="text-3xl font-bold text-neutral-400 mb-1">58,6%</div>
+          <div class="text-sm font-semibold text-white mb-0.5">GPT-5.5</div>
+          <div class="text-xs text-neutral-500 mb-2">SWE-bench Pro</div>
+          <div class="w-full bg-dark-700 rounded-full h-2 mb-3">
+            <div class="bg-neutral-500 h-2 rounded-full" style="width: 84.7%"></div>
+          </div>
+          <div class="text-xs bg-dark-700 text-neutral-400 px-2 py-1 rounded-full inline-block">−10,6 pp vs 4.8</div>
+        </div>
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-5 text-center">
+          <div class="text-3xl font-bold text-neutral-400 mb-1">54,2%</div>
+          <div class="text-sm font-semibold text-white mb-0.5">Gemini 3.1 Pro</div>
+          <div class="text-xs text-neutral-500 mb-2">SWE-bench Pro</div>
+          <div class="w-full bg-dark-700 rounded-full h-2 mb-3">
+            <div class="bg-neutral-500 h-2 rounded-full" style="width: 78.3%"></div>
+          </div>
+          <div class="text-xs bg-dark-700 text-neutral-400 px-2 py-1 rounded-full inline-block">−15,0 pp vs 4.8</div>
+        </div>
+      </div>
+
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">📊</span> O que a margem sobre o GPT-5.5 indica</h3>
+        <p class="text-neutral-300 mb-3">A diferença de ~10 pontos sobre o GPT-5.5 é expressiva. Isso vai além de ruído estatístico — sugere que o Opus 4.8 tem uma vantagem arquitetural real em tarefas de engenharia de software nessa geração de modelos.</p>
+        <p class="text-neutral-300">A vantagem sobre o Gemini 3.1 Pro é ainda maior (~15 pp), o que posiciona o Opus 4.8 como a escolha mais forte em coding quando se compara os três grandes fornecedores — ao menos segundo os benchmarks auto-reportados (veja o tópico 6).</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6: Ressalva -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">⚠️ Ressalva: números auto-reportados</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Todos os números desta seção são <strong class="text-red-400">auto-reportados pela Anthropic</strong> com comparações de primeira parte. Isso não invalida os dados — mas exige que você os leia com a postura adequada.</p>
+
+      <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-red-400 mb-4 flex items-center"><span class="mr-2">⚠️</span> Por que "auto-reportado" importa</h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span>A Anthropic escolhe quais benchmarks reportar — naturalmente prioriza os que favorecem seu modelo</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span>As comparações com GPT-5.5 e Gemini foram obtidas e reportadas pela Anthropic, não por auditores neutros</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span>Não existe até agora uma auditoria independente em escala que confirme esses resultados com rigor estatístico</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span>O único teste externo disponível é da TrueFoundry, com apenas 50 problemas — amostra pequena demais para ser conclusiva</span></li>
+        </ul>
+      </div>
+
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">📊</span> O que é razoável concluir dos dados</h3>
+        <p class="text-neutral-300 mb-3">A direção é provavelmente correta: o 4.8 é melhor que o 4.7 em código, e melhor que GPT-5.5 e Gemini 3.1 Pro segundo os benchmarks disponíveis. A magnitude exata da diferença é mais incerta.</p>
+        <p class="text-neutral-300">A TrueFoundry (50 problemas, teste externo pequeno) reportou resultados consistentes com a direção — o que aumenta um pouco a confiança, mas não é suficiente para validar os percentuais absolutos.</p>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Postura recomendada</h3>
+        <p class="text-neutral-300">Trate os benchmarks como evidência de direção — o 4.8 provavelmente é melhor em código. Não como garantia de magnitude. Para decisões que envolvem custo ou migração de arquitetura, construa seu próprio conjunto de 20–30 tarefas representativas e compare lá.</p>
+      </div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">📌</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">SWE-bench Pro 69,2%</strong><span class="text-neutral-400"> — 4.7: 64,3% | GPT-5.5: 58,6% | Gemini 3.1 Pro: 54,2%.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">SWE-bench Verified 88,6%</strong><span class="text-neutral-400"> — evolução de +1 pp sobre o 4.7 (87,6%).</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Benchmarks como filtro</strong><span class="text-neutral-400"> — úteis para eliminar candidatos fracos, não para garantir desempenho no seu domínio.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-red-400 mt-1">⚠</span><div><strong class="text-white">Auto-reportados</strong><span class="text-neutral-400"> — pela Anthropic, sem auditoria independente em escala. TrueFoundry (50 problemas) é a única referência externa disponível.</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-blue-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">2.3 — Uso de computador e agentes</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-start">
+          <a href="modulo-2-1.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo Anterior</a>
+          <a href="modulo-2-3.html" class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Dominando o Claude Opus 4.8 · Módulo 2.2 · <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> · 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const d = document.getElementById('theme-toggle-dark-icon');
+    const l = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) {
+      d.classList.remove('hidden'); html.classList.remove('dark');
+    } else { l.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      d.classList.toggle('hidden'); l.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

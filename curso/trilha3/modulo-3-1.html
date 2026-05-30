@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 3.1 · Fast Mode | Opus 4.8</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(220,38,38,0.07); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between items-center h-14">
+      <div class="flex items-center space-x-4">
+        <a href="../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300"><span class="text-2xl">🤖</span><span class="font-bold text-lg hidden sm:inline">Opus 4.8</span></a>
+        <span class="text-neutral-600">|</span>
+        <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+      </div>
+      <div class="flex items-center space-x-1 sm:space-x-2">
+        <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Capacidades</span></a>
+        <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">O que mudou</span></a>
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Na prática</span></a>
+        <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        </button>
+      </div>
+    </div></div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../index.html" class="hover:text-purple-400">Início</a><span>/</span>
+      <a href="index.html" class="hover:text-purple-400">Trilha 3</a><span>/</span><span class="text-purple-400">Módulo 3.1</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MÓDULO 3.1</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">⚡ Fast Mode</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Velocidade de inferência sob demanda: como o Fast Mode entrega 2,5× mais rapidez a um custo ~3× menor que o fast mode do 4.7 — e quando faz sentido acioná-lo.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">25</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Básico</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Prático</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">⚡ O que é o Fast Mode</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">O <strong class="text-purple-400">Fast Mode</strong> é uma variante de inferência do Opus 4.8 otimizada para velocidade. Em vez de maximizar profundidade de raciocínio, ele prioriza throughput — entregando respostas completas significativamente mais rápido que o modo padrão, sem trocar de modelo.</p>
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><span class="mr-2">🚀</span> Conceito Principal</h3>
+        <p class="text-neutral-300 mb-4">Fast Mode não é um modelo diferente — é o mesmo <code class="bg-dark-700 px-1.5 py-0.5 rounded text-purple-400 text-sm">claude-opus-4-8</code> rodando em modo de inferência acelerada. Você mantém a qualidade do Opus com latência reduzida para tarefas onde velocidade importa mais que raciocínio profundo.</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Mesmo modelo base:</strong> inteligência e segurança do Opus 4.8 intactas.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Modo de inferência distinto:</strong> pipeline interno otimizado para velocidade.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Escolha explícita:</strong> você decide quando usar — não é automático.</span></li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica de contexto</h3>
+        <p class="text-neutral-300">Pense em Fast Mode como o modo "sprint" do Opus 4.8. Para pipelines de alta frequência — geração de rascunhos, triagem, sumarização em lote — ele muda a equação de custo×tempo de forma decisiva.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">📈 2,5× de velocidade</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">O ganho de velocidade do Fast Mode não é marginal. Nos benchmarks de inferência publicados pela Anthropic, o modo entrega aproximadamente <strong class="text-purple-400">2,5 vezes mais tokens por segundo</strong> em relação ao modo padrão do Opus 4.8.</p>
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📊</span> O que 2,5× significa na prática</h3>
+        <div class="space-y-4">
+          <div class="flex items-start space-x-4">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-900/40 flex items-center justify-center"><span class="text-blue-400 font-bold text-sm">Ex</span></div>
+            <div>
+              <p class="text-neutral-300 text-sm">Uma resposta que no modo padrão leva <strong>4 segundos</strong> fica pronta em <strong class="text-blue-400">~1,6 segundos</strong> no Fast Mode.</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-900/40 flex items-center justify-center"><span class="text-blue-400 font-bold text-sm">Vol</span></div>
+            <div>
+              <p class="text-neutral-300 text-sm">Em pipelines de lote, isso se traduz diretamente em <strong class="text-blue-400">maior throughput por minuto</strong> — mais trabalho pelo mesmo slot de API.</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-900/40 flex items-center justify-center"><span class="text-blue-400 font-bold text-sm">UX</span></div>
+            <div>
+              <p class="text-neutral-300 text-sm">Em produtos com interface, a diferença entre 4s e 1,6s é perceptível pelo usuário — impacto direto em <strong class="text-blue-400">satisfação e conversão</strong>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">⚠️</span> Ressalva importante</h3>
+        <p class="text-neutral-300">Velocidade maior vem com raciocínio reduzido. Para tarefas que exigem cadeia longa de passos (multi-step reasoning), o modo padrão ainda é preferível. Fast Mode brilha em tarefas com respostas curtas e bem definidas.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">💲 Preço: US$10/M e US$50/M</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">O Fast Mode tem precificação própria, separada do modo padrão. Os valores são fixos por milhão de tokens e representam um desconto significativo frente ao modo regular do Opus 4.8.</p>
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-6 flex items-center"><span class="mr-2">💰</span> Tabela de preços — Fast Mode</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-dark-800 rounded-xl p-5 border border-purple-500/20">
+            <div class="text-3xl font-bold text-purple-400 mb-1">US$ 10</div>
+            <div class="text-sm text-neutral-400 mb-3">por milhão de tokens</div>
+            <div class="inline-block px-2 py-0.5 bg-purple-500/20 text-purple-400 text-xs rounded-full font-semibold">INPUT</div>
+            <p class="text-neutral-300 text-sm mt-3">Tokens enviados ao modelo: seu prompt, contexto, histórico de conversa.</p>
+          </div>
+          <div class="bg-dark-800 rounded-xl p-5 border border-purple-500/20">
+            <div class="text-3xl font-bold text-purple-400 mb-1">US$ 50</div>
+            <div class="text-sm text-neutral-400 mb-3">por milhão de tokens</div>
+            <div class="inline-block px-2 py-0.5 bg-purple-500/20 text-purple-400 text-xs rounded-full font-semibold">OUTPUT</div>
+            <p class="text-neutral-300 text-sm mt-3">Tokens gerados pelo modelo: a resposta completa incluindo raciocínio interno.</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">📊</span> Contexto de mercado</h3>
+        <p class="text-neutral-300">US$10/M input e US$50/M output coloca o Fast Mode do Opus 4.8 numa faixa competitiva com modelos frontier de outras empresas — mas com a qualidade do melhor modelo da Anthropic. Para volumes elevados, o custo-benefício favorece fortemente o Fast Mode frente ao modo padrão.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">🆚 3× mais barato que o fast do 4.7</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Comparado ao fast mode do Claude Opus 4.7, o Fast Mode do 4.8 é <strong class="text-purple-400">aproximadamente 3 vezes mais barato</strong> — o que não é incremental, é uma mudança de patamar.</p>
+
+      <!-- Timeline de evolução -->
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold text-neutral-300 mb-5">Evolução do custo do fast mode entre versões</h3>
+        <div class="relative pl-8">
+          <div class="absolute left-3 top-0 bottom-0 w-0.5 bg-dark-600"></div>
+          <div class="relative mb-8">
+            <div class="absolute -left-5 w-4 h-4 rounded-full bg-dark-600 border-2 border-dark-500"></div>
+            <div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-sm font-semibold text-neutral-400">Claude Opus 4.7 — Fast Mode</span>
+                <span class="text-xs bg-dark-700 text-neutral-500 px-2 py-0.5 rounded-full">Versão anterior</span>
+              </div>
+              <p class="text-neutral-300 text-sm">Custo referência: ~3× mais caro que o 4.8 Fast. Serviu de baseline para a nova geração.</p>
+            </div>
+          </div>
+          <div class="relative mb-8">
+            <div class="absolute -left-5 w-4 h-4 rounded-full bg-purple-600 border-2 border-purple-400"></div>
+            <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl p-5 border border-purple-500/30">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-sm font-semibold text-purple-400">Claude Opus 4.8 — Fast Mode</span>
+                <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded-full font-semibold">Atual · 2026</span>
+              </div>
+              <p class="text-neutral-300 text-sm">US$10/M input · US$50/M output. Redução de custo de ~66% mantendo qualidade e velocidade superiores.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+          <h4 class="font-bold text-purple-400 mb-4">✓ O que você ganha</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Mesma velocidade fast com custo 3× menor</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Orçamento de API vai 3× mais longe</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Modelo mais inteligente que o predecessor</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ O que não muda</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Raciocínio profundo ainda custa mais (modo padrão)</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Cache de prompt não elimina custo de output</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Não é gratuito — monitore consumo</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">⚖️ Fast vs Regular: quando usar cada um</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">A escolha entre Fast Mode e modo regular não é sobre qualidade intrínseca do modelo — é sobre <strong class="text-purple-400">adequação ao tipo de tarefa</strong>. Use a matriz abaixo para decidir.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+          <h4 class="font-bold text-purple-400 mb-5 flex items-center"><span class="mr-2">⚡</span> Fast Mode — Use quando</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-purple-400 mt-0.5">✓</span><span>Sumarização e classificação em lote</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400 mt-0.5">✓</span><span>Rascunhos iniciais para revisão humana</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400 mt-0.5">✓</span><span>Respostas curtas e bem delimitadas</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400 mt-0.5">✓</span><span>Latência perceptível pelo usuário final</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400 mt-0.5">✓</span><span>Alto volume com orçamento controlado</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-5 flex items-center"><span class="mr-2">🧠</span> Regular — Use quando</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400 mt-0.5">✗</span><span>Problema exige múltiplos passos encadeados</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400 mt-0.5">✗</span><span>Código complexo com lógica profunda</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400 mt-0.5">✗</span><span>Análise estratégica ou tomada de decisão</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400 mt-0.5">✗</span><span>Erro tem custo alto (produção, segurança)</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400 mt-0.5">✗</span><span>Raciocínio matemático avançado</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Estratégia híbrida</h3>
+        <p class="text-neutral-300">Muitos pipelines de produção usam os dois modos: Fast Mode para triagem e rascunho, Regular para revisão final e decisões críticas. A combinação maximiza velocidade sem sacrificar qualidade onde ela importa.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">🌐 Onde está disponível</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">O Fast Mode está disponível nas principais plataformas que suportam o Opus 4.8. A forma de acionamento varia por canal.</p>
+      <div class="space-y-4 mb-6">
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold text-sm">AI</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+            <h4 class="font-semibold text-white mb-1">claude.ai</h4>
+            <p class="text-neutral-300 text-sm">Disponível via seletor de modo na interface. Aparece como opção ao usar o Opus 4.8.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold text-sm">API</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+            <h4 class="font-semibold text-white mb-1">Claude API (Anthropic)</h4>
+            <p class="text-neutral-300 text-sm">Acione via parâmetro de inferência. Documentação oficial na Anthropic Docs descreve o campo específico.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold text-sm">3P</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+            <h4 class="font-semibold text-white mb-1">Provedores terceiros (ex.: OpenRouter)</h4>
+            <p class="text-neutral-300 text-sm">Plataformas como OpenRouter já listam <code class="bg-dark-700 px-1 rounded text-purple-400">Opus 4.8 (Fast)</code> como opção separada de modelo, facilitando a troca em pipelines existentes sem mudança de código.</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+        <h3 class="text-base font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> Atenção</h3>
+        <p class="text-neutral-300 text-sm">Disponibilidade pode variar por região e tipo de conta. Verifique na documentação do provedor se o Fast Mode está habilitado para seu plano antes de projetar custos de produção com base nele.</p>
+      </div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">📌</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Fast Mode</strong><span class="text-neutral-400"> — mesmo Opus 4.8, modo de inferência otimizado para velocidade.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">2,5× mais rápido</strong><span class="text-neutral-400"> — throughput de tokens significativamente superior ao modo padrão.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">US$10/M input · US$50/M output</strong><span class="text-neutral-400"> — ~3× mais barato que o fast do 4.7.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Use com estratégia</strong><span class="text-neutral-400"> — Fast para volume/triagem; Regular para raciocínio profundo.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Disponível</strong><span class="text-neutral-400"> — claude.ai, API Anthropic, OpenRouter e outros provedores.</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-purple-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">3.2 — Dynamic Workflows: centenas de subagentes paralelos numa sessão</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-start">
+          <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para Trilha</a>
+          <a href="modulo-3-2.html" class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm"><p>Dominando o Claude Opus 4.8 · Módulo 3.1 · <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> · 2026</p></div></footer>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const d = document.getElementById('theme-toggle-dark-icon'); const l = document.getElementById('theme-toggle-light-icon'); const html = document.documentElement;
+    if (localStorage.getItem('theme')==='light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) { d.classList.remove('hidden'); html.classList.remove('dark'); } else { l.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => { d.classList.toggle('hidden'); l.classList.toggle('hidden'); html.classList.toggle('dark'); localStorage.setItem('theme', html.classList.contains('dark')?'dark':'light'); });
+  </script>
+</body>
+</html>

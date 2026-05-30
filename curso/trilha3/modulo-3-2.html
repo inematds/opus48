@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 3.2 · Dynamic Workflows | Opus 4.8</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(220,38,38,0.07); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between items-center h-14">
+      <div class="flex items-center space-x-4">
+        <a href="../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300"><span class="text-2xl">🤖</span><span class="font-bold text-lg hidden sm:inline">Opus 4.8</span></a>
+        <span class="text-neutral-600">|</span>
+        <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+      </div>
+      <div class="flex items-center space-x-1 sm:space-x-2">
+        <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Capacidades</span></a>
+        <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">O que mudou</span></a>
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Na prática</span></a>
+        <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        </button>
+      </div>
+    </div></div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../index.html" class="hover:text-purple-400">Início</a><span>/</span>
+      <a href="index.html" class="hover:text-purple-400">Trilha 3</a><span>/</span><span class="text-purple-400">Módulo 3.2</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MÓDULO 3.2</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🔀 Dynamic Workflows</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Como o Opus 4.8 orquestra centenas de subagentes em paralelo numa única sessão — planejando, executando e verificando resultados de forma autônoma.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">30</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Avançado</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Preview</div><div class="text-xs text-neutral-400">Status</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">🔀 O que é Dynamic Workflows</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Dynamic Workflows é um recurso em <strong class="text-purple-400">research preview no Claude Code</strong> que permite ao Opus 4.8 orquestrar e executar múltiplos subagentes em paralelo dentro de uma única sessão de trabalho. O modelo não apenas responde — ele planeja, delega e verifica.</p>
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><span class="mr-2">🧬</span> Conceito Principal</h3>
+        <p class="text-neutral-300 mb-4">Ao contrário de um modelo que responde linearmente, Dynamic Workflows habilita um padrão de execução em grafo: o Claude age como orquestrador, divide o problema em subtarefas, lança subagentes paralelos para cada uma, e sintetiza os resultados ao final.</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Orquestrador central:</strong> o Opus 4.8 decide a estratégia e coordena subagentes.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Execução paralela:</strong> centenas de subagentes podem rodar simultaneamente.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Verificação integrada:</strong> o orquestrador valida saídas antes de sintetizar.</span></li>
+        </ul>
+      </div>
+      <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+        <h3 class="text-base font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">⚠️</span> Research Preview</h3>
+        <p class="text-neutral-300 text-sm">Dynamic Workflows está disponível apenas no Claude Code em research preview. Ainda não é GA (Generally Available). Comportamentos, limites e precificação podem mudar antes do lançamento oficial.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">🔢 Centenas de subagentes paralelos</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">O diferencial central do Dynamic Workflows é a escala de paralelismo. Uma única sessão pode lançar <strong class="text-purple-400">centenas de subagentes simultâneos</strong> — cada um com seu contexto, ferramentas e objetivo específico.</p>
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-5 flex items-center"><span class="mr-2">📊</span> Como a paralelização funciona</h3>
+        <div class="space-y-4">
+          <div class="flex items-start space-x-4">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-900/40 flex items-center justify-center"><span class="text-blue-400 font-bold text-xs">01</span></div>
+            <div>
+              <h4 class="font-semibold text-white text-sm mb-1">Decomposição do problema</h4>
+              <p class="text-neutral-300 text-sm">O orquestrador analisa o objetivo e divide em subtarefas independentes que podem ser resolvidas em paralelo.</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-900/40 flex items-center justify-center"><span class="text-blue-400 font-bold text-xs">02</span></div>
+            <div>
+              <h4 class="font-semibold text-white text-sm mb-1">Lançamento simultâneo</h4>
+              <p class="text-neutral-300 text-sm">Os subagentes são instanciados em paralelo, cada um recebendo contexto e ferramentas específicos para sua tarefa.</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-900/40 flex items-center justify-center"><span class="text-blue-400 font-bold text-xs">03</span></div>
+            <div>
+              <h4 class="font-semibold text-white text-sm mb-1">Coleta e síntese</h4>
+              <p class="text-neutral-300 text-sm">O orquestrador coleta os resultados, verifica coerência e sintetiza a resposta final integrada.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Por que isso importa</h3>
+        <p class="text-neutral-300">Tarefas que levariam horas em execução sequencial — como analisar centenas de arquivos de código, pesquisar múltiplas fontes ou executar testes em paralelo — se tornam viáveis em minutos com Dynamic Workflows.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">🔄 Planeja, executa e verifica</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">O loop completo do Dynamic Workflows não é apenas "rodar agentes". É um ciclo de três fases que o Opus 4.8 gerencia autonomamente: <strong class="text-purple-400">planejamento → execução → verificação</strong>.</p>
+
+      <!-- Timeline -->
+      <div class="mb-8">
+        <div class="relative pl-8">
+          <div class="absolute left-3 top-0 bottom-0 w-0.5 bg-purple-500/30"></div>
+          <div class="relative mb-8">
+            <div class="absolute -left-5 w-4 h-4 rounded-full bg-purple-600 border-2 border-purple-400"></div>
+            <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl p-5 border border-purple-500/30">
+              <div class="flex items-center mb-2"><span class="text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded-full">FASE 1</span><span class="ml-3 font-semibold text-white">Planejamento</span></div>
+              <p class="text-neutral-300 text-sm">O orquestrador recebe o objetivo, analisa o escopo, define subtarefas, determina dependências e cria o grafo de execução. Decide quais agentes precisam de resultado de outros antes de iniciar.</p>
+            </div>
+          </div>
+          <div class="relative mb-8">
+            <div class="absolute -left-5 w-4 h-4 rounded-full bg-purple-600 border-2 border-purple-400"></div>
+            <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl p-5 border border-purple-500/30">
+              <div class="flex items-center mb-2"><span class="text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded-full">FASE 2</span><span class="ml-3 font-semibold text-white">Execução paralela</span></div>
+              <p class="text-neutral-300 text-sm">Os subagentes independentes são lançados simultaneamente. Cada um opera com contexto isolado, usa ferramentas (bash, browser, APIs) e reporta resultados ao orquestrador.</p>
+            </div>
+          </div>
+          <div class="relative">
+            <div class="absolute -left-5 w-4 h-4 rounded-full bg-purple-600 border-2 border-purple-400"></div>
+            <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl p-5 border border-purple-500/30">
+              <div class="flex items-center mb-2"><span class="text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded-full">FASE 3</span><span class="ml-3 font-semibold text-white">Verificação e síntese</span></div>
+              <p class="text-neutral-300 text-sm">O orquestrador valida cada resultado contra os critérios do objetivo, rejeita ou solicita correção quando necessário, e sintetiza a resposta final coerente.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> A chave é a verificação</h3>
+        <p class="text-neutral-300">Diferente de sistemas que apenas paralelizam sem checar qualidade, o Dynamic Workflows inclui verificação ativa das saídas. O orquestrador pode rejeitar resultados inconsistentes e relançar subagentes se necessário — reduzindo erros em cascata.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">⏱️ Com o 4.8, os agentes rodam mais tempo</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Um dos avanços específicos do Opus 4.8 frente ao 4.7 em contextos agenticos é a <strong class="text-purple-400">maior persistência de execução</strong>: os agentes conseguem trabalhar por sessões mais longas sem perder coerência ou degradar qualidade.</p>
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📊</span> O que muda com sessões mais longas</h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Subagentes conseguem completar tarefas mais complexas sem interrupção forçada</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Menos overhead de restart — orquestrador não precisa relançar agentes que "expiraram"</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Coerência mantida em fluxos com múltiplas dependências entre subtarefas</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Projetos de código de médio/grande porte ficam viáveis em uma única sessão</span></li>
+        </ul>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+          <h4 class="font-bold text-purple-400 mb-4">✓ Tarefas beneficiadas</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Refatoração de bases de código grandes</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Pesquisa multi-etapa com síntese</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Geração de suítes de testes completas</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Ainda não ideal para</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Sistemas real-time com resposta &lt;1s</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Tarefas que exigem aprovação humana a cada passo</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Ambientes sem suporte ao Claude Code</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">🏗️ Casos de uso</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Dynamic Workflows abre uma categoria nova de automação: trabalhos que antes exigiam equipes ou dias de execução sequencial passam a ser delegáveis a uma sessão do Claude Code.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+          <div class="text-2xl mb-3">🔍</div>
+          <h4 class="font-semibold text-white mb-2">Auditoria de código</h4>
+          <p class="text-neutral-300 text-sm">Lança um subagente por arquivo/módulo em paralelo, coletando issues de segurança, performance e qualidade simultaneamente.</p>
+        </div>
+        <div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+          <div class="text-2xl mb-3">📚</div>
+          <h4 class="font-semibold text-white mb-2">Pesquisa e síntese</h4>
+          <p class="text-neutral-300 text-sm">Múltiplos agentes buscam e analisam fontes distintas em paralelo; o orquestrador sintetiza um relatório coerente e referenciado.</p>
+        </div>
+        <div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+          <div class="text-2xl mb-3">🧪</div>
+          <h4 class="font-semibold text-white mb-2">Geração de testes</h4>
+          <p class="text-neutral-300 text-sm">Um agente por função/componente gera casos de teste em paralelo, com o orquestrador verificando cobertura e consistência ao final.</p>
+        </div>
+        <div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+          <div class="text-2xl mb-3">🌐</div>
+          <h4 class="font-semibold text-white mb-2">Migração de sistemas</h4>
+          <p class="text-neutral-300 text-sm">Conversão de código legado em paralelo por módulo — cada subagente migra uma parte, o orquestrador garante integração.</p>
+        </div>
+        <div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+          <div class="text-2xl mb-3">📊</div>
+          <h4 class="font-semibold text-white mb-2">Análise de dados em lote</h4>
+          <p class="text-neutral-300 text-sm">Processar centenas de datasets, logs ou relatórios em paralelo com agregação centralizada pelo orquestrador.</p>
+        </div>
+        <div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+          <div class="text-2xl mb-3">🚀</div>
+          <h4 class="font-semibold text-white mb-2">Deploy e verificação</h4>
+          <p class="text-neutral-300 text-sm">Subagentes em múltiplos ambientes executam deploys em paralelo, verificando health checks e revertendo individualmente se necessário.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">⚠️ Limites e status: Research Preview</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Dynamic Workflows é poderoso, mas está em estágio inicial. Conhecer os limites atuais é fundamental para planejar adoção responsável.</p>
+      <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-red-400 mb-4 flex items-center"><span class="mr-2">🚧</span> Limitações declaradas no lançamento</h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span><strong>Apenas no Claude Code:</strong> não disponível via API padrão ou claude.ai por enquanto.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span><strong>Data de GA indefinida:</strong> a Anthropic não comunicou prazo para lançamento geral no momento do release.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span><strong>Limites de subagentes:</strong> teto máximo de agentes simultâneos não divulgado publicamente.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span><strong>Precificação sujeita a mudança:</strong> custos de sessões multi-agente podem ser ajustados antes do GA.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span><strong>Estabilidade não garantida:</strong> comportamento e APIs podem mudar sem aviso prévio durante o preview.</span></li>
+        </ul>
+      </div>
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">📊</span> Como acompanhar a evolução</h3>
+        <p class="text-neutral-300">A Anthropic publica atualizações do Claude Code no blog oficial e nas release notes do produto. Para uso em produção, aguarde o GA antes de comprometer arquitetura de sistema com Dynamic Workflows.</p>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Estratégia de adoção</h3>
+        <p class="text-neutral-300">Use o research preview agora para <strong>prototipagem e exploração</strong>. Identifique os casos de uso com maior potencial para seu contexto. Assim que o GA chegar, você já terá experiência prática e poderá mover para produção rapidamente.</p>
+      </div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">📌</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Research Preview</strong><span class="text-neutral-400"> — disponível no Claude Code, GA indefinido no lançamento.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Centenas de subagentes</strong><span class="text-neutral-400"> — paralelismo massivo gerenciado pelo orquestrador Opus 4.8.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Loop planejar-executar-verificar</strong><span class="text-neutral-400"> — ciclo completo autônomo com verificação de qualidade integrada.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">4.8 roda mais tempo</strong><span class="text-neutral-400"> — sessões agenticas mais longas e coerentes que versões anteriores.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Use com cautela</strong><span class="text-neutral-400"> — prototipe agora, espere GA para produção crítica.</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-purple-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">3.3 — Onde rodar: plataformas disponíveis para o Opus 4.8</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-start">
+          <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para Trilha</a>
+          <a href="modulo-3-3.html" class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm"><p>Dominando o Claude Opus 4.8 · Módulo 3.2 · <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> · 2026</p></div></footer>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const d = document.getElementById('theme-toggle-dark-icon'); const l = document.getElementById('theme-toggle-light-icon'); const html = document.documentElement;
+    if (localStorage.getItem('theme')==='light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) { d.classList.remove('hidden'); html.classList.remove('dark'); } else { l.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => { d.classList.toggle('hidden'); l.classList.toggle('hidden'); html.classList.toggle('dark'); localStorage.setItem('theme', html.classList.contains('dark')?'dark':'light'); });
+  </script>
+</body>
+</html>

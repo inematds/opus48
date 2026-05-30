@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 3.3 · Onde rodar | Opus 4.8</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(220,38,38,0.07); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between items-center h-14">
+      <div class="flex items-center space-x-4">
+        <a href="../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300"><span class="text-2xl">🤖</span><span class="font-bold text-lg hidden sm:inline">Opus 4.8</span></a>
+        <span class="text-neutral-600">|</span>
+        <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+      </div>
+      <div class="flex items-center space-x-1 sm:space-x-2">
+        <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Capacidades</span></a>
+        <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">O que mudou</span></a>
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Na prática</span></a>
+        <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 011-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        </button>
+      </div>
+    </div></div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../index.html" class="hover:text-purple-400">Início</a><span>/</span>
+      <a href="index.html" class="hover:text-purple-400">Trilha 3</a><span>/</span><span class="text-purple-400">Módulo 3.3</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MÓDULO 3.3</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🌐 Onde rodar</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Todas as plataformas que suportam o Opus 4.8: de claude.ai ao GitHub Copilot, incluindo limites específicos por plataforma — como os 200k de contexto no Microsoft Foundry.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">6</div><div class="text-xs text-neutral-400">Plataformas</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">20</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Básico</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Ref.</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- INTRO: Grid de plataformas (visão geral) -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><span class="mr-2">🗺️</span> Mapa de disponibilidade</h3>
+        <p class="text-neutral-300 mb-6">O Opus 4.8 está disponível em 6 plataformas principais. A janela de 1M de tokens é padrão na maioria — com exceção do Microsoft Foundry (200k). Cada plataforma tem seu caso de uso ideal.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div class="bg-dark-800 rounded-lg p-4 border border-dark-600 text-center">
+            <div class="text-2xl mb-2">🤖</div>
+            <div class="font-semibold text-white text-sm">claude.ai</div>
+            <div class="text-xs text-purple-400 mt-1">1M contexto</div>
+          </div>
+          <div class="bg-dark-800 rounded-lg p-4 border border-dark-600 text-center">
+            <div class="text-2xl mb-2">⚙️</div>
+            <div class="font-semibold text-white text-sm">Claude API</div>
+            <div class="text-xs text-purple-400 mt-1">1M contexto</div>
+          </div>
+          <div class="bg-dark-800 rounded-lg p-4 border border-dark-600 text-center">
+            <div class="text-2xl mb-2">☁️</div>
+            <div class="font-semibold text-white text-sm">AWS Bedrock</div>
+            <div class="text-xs text-purple-400 mt-1">1M contexto</div>
+          </div>
+          <div class="bg-dark-800 rounded-lg p-4 border border-dark-600 text-center">
+            <div class="text-2xl mb-2">🌩️</div>
+            <div class="font-semibold text-white text-sm">Google Vertex</div>
+            <div class="text-xs text-purple-400 mt-1">1M contexto</div>
+          </div>
+          <div class="bg-dark-800 rounded-lg p-4 border border-dark-600 text-center">
+            <div class="text-2xl mb-2">🪟</div>
+            <div class="font-semibold text-white text-sm">MS Foundry</div>
+            <div class="text-xs text-red-400 mt-1">200k contexto ⚠️</div>
+          </div>
+          <div class="bg-dark-800 rounded-lg p-4 border border-dark-600 text-center">
+            <div class="text-2xl mb-2">🐙</div>
+            <div class="font-semibold text-white text-sm">GitHub Copilot</div>
+            <div class="text-xs text-purple-400 mt-1">1M contexto</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">🤖 claude.ai</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">O <strong class="text-purple-400">claude.ai</strong> é a interface web oficial da Anthropic — o caminho mais direto para usar o Opus 4.8 sem configuração de API ou infraestrutura. Ideal para uso individual, exploração de capacidades e prototipagem rápida.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+          <h4 class="font-bold text-purple-400 mb-4">✓ Pontos fortes</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Acesso imediato sem código — só criar conta</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>1M tokens de contexto disponíveis</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Suporte a upload de arquivos e análise de docs</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Claude Code integrado para usuários Pro/Max</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Limitações</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Limites de mensagens por dia no plano Free</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Sem acesso programático — não integra em código</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Histórico limitado por sessão no plano gratuito</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Melhor para</h3>
+        <p class="text-neutral-300">Exploração de capacidades do modelo, análise de documentos longos (até 1M tokens), uso pessoal e profissional sem precisar de integração técnica. O plano Max dá prioridade de acesso e limites maiores.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">⚙️ Claude API (Anthropic)</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">A <strong class="text-purple-400">Claude API</strong> é o canal principal para integrações programáticas. Com ela, você chama o Opus 4.8 diretamente de qualquer código, com controle total sobre parâmetros, contexto e fluxo da conversa.</p>
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📊</span> Especificações técnicas</h3>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between py-2 border-b border-dark-600">
+            <span class="text-neutral-400 text-sm">Model ID</span>
+            <code class="bg-dark-700 px-2 py-0.5 rounded text-purple-400 text-sm">claude-opus-4-8</code>
+          </div>
+          <div class="flex items-center justify-between py-2 border-b border-dark-600">
+            <span class="text-neutral-400 text-sm">Contexto máximo</span>
+            <span class="text-neutral-300 text-sm font-semibold">1.000.000 tokens</span>
+          </div>
+          <div class="flex items-center justify-between py-2 border-b border-dark-600">
+            <span class="text-neutral-400 text-sm">Saída máxima</span>
+            <span class="text-neutral-300 text-sm font-semibold">128.000 tokens</span>
+          </div>
+          <div class="flex items-center justify-between py-2 border-b border-dark-600">
+            <span class="text-neutral-400 text-sm">Tipo</span>
+            <span class="text-neutral-300 text-sm">Híbrido (raciocínio + direto)</span>
+          </div>
+          <div class="flex items-center justify-between py-2">
+            <span class="text-neutral-400 text-sm">Fast Mode</span>
+            <span class="text-purple-400 text-sm font-semibold">Disponível via parâmetro</span>
+          </div>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Melhor para</h3>
+        <p class="text-neutral-300">Integrações em produtos, automações, pipelines de dados e qualquer caso onde você precisa de controle programático completo. Suporta prompt caching, streaming e todos os recursos avançados do modelo.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">☁️ Amazon Bedrock</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">A <strong class="text-purple-400">Amazon Bedrock</strong> disponibiliza o Opus 4.8 dentro do ecossistema AWS, permitindo que empresas que já usam serviços Amazon integrem o modelo sem sair da infraestrutura existente.</p>
+      <div class="space-y-4 mb-6">
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold text-xs">IAM</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+            <h4 class="font-semibold text-white mb-1">Controle de acesso via IAM</h4>
+            <p class="text-neutral-300 text-sm">Permissões granulares por usuário, role e serviço usando o sistema de IAM da AWS que você já conhece.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold text-xs">VPC</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+            <h4 class="font-semibold text-white mb-1">Rede privada e compliance</h4>
+            <p class="text-neutral-300 text-sm">Tráfego pode ficar dentro da VPC. Atende requisitos de compliance como SOC 2, HIPAA e GDPR com os controles da AWS.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold text-xs">1M</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+            <h4 class="font-semibold text-white mb-1">1M tokens de contexto</h4>
+            <p class="text-neutral-300 text-sm">Janela completa disponível — sem restrição de contexto em relação à API direta da Anthropic.</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Melhor para</h3>
+        <p class="text-neutral-300">Empresas com infraestrutura AWS estabelecida, requisitos de compliance corporativo e times que já trabalham com Bedrock para outros modelos. Faturamento unificado na AWS.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">🌩️ Google Vertex AI</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">O <strong class="text-purple-400">Google Vertex AI</strong> hospeda o Opus 4.8 no ecossistema Google Cloud, com integração nativa ao stack de ML da Google — incluindo BigQuery, Dataflow e Vertex Pipelines.</p>
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📊</span> Vantagens no ecossistema Google</h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>Integração com BigQuery:</strong> análise de dados em escala com o modelo diretamente sobre os dados.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>Vertex Pipelines:</strong> orquestre chamadas ao Opus 4.8 em pipelines de ML gerenciados.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>1M tokens:</strong> janela completa disponível, sem corte de contexto.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>Segurança GCP:</strong> VPC Service Controls e Cloud Armor para proteção de endpoint.</span></li>
+        </ul>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+          <h4 class="font-bold text-purple-400 mb-4">✓ Ideal quando você usa</h4>
+          <ul class="space-y-2 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Google Cloud como cloud principal</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>BigQuery para dados analytics</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Outros modelos no Vertex (Gemini etc)</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Considere alternativas se</h4>
+          <ul class="space-y-2 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Sua infra é AWS ou Azure-first</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Não usa outros serviços Google Cloud</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Precisa da API direta sem overhead de cloud</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">🪟 Microsoft Azure AI Foundry</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">O <strong class="text-purple-400">Microsoft Azure AI Foundry</strong> (anteriormente Azure AI Studio) disponibiliza o Opus 4.8 dentro do ecossistema Microsoft — com uma ressalva importante: o contexto é limitado a <strong class="text-red-400">200.000 tokens</strong>, não 1M como nas outras plataformas.</p>
+
+      <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-red-400 mb-3 flex items-center"><span class="mr-2">⚠️</span> Limite crítico: 200k tokens de contexto</h3>
+        <p class="text-neutral-300 mb-4">No Azure AI Foundry, a janela de contexto do Opus 4.8 é de 200.000 tokens — 5 vezes menor que o máximo do modelo. Isso é suficiente para a maioria dos casos de uso, mas elimina cenários que dependem da janela de 1M (análise de bases de código grandes, documentos muito longos, etc.).</p>
+        <div class="bg-dark-800/50 rounded-lg p-4">
+          <p class="text-neutral-300 text-sm"><strong class="text-red-400">Antes de escolher o Foundry:</strong> confirme se 200k tokens atendem seu caso de uso. Se você precisa de 1M de contexto, use a API direta da Anthropic, AWS Bedrock ou Google Vertex AI.</p>
+        </div>
+      </div>
+
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📊</span> Quando o Foundry ainda faz sentido</h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Empresa já usa Azure com compliance corporativo Microsoft (M365, Azure AD)</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Casos de uso com contexto abaixo de 200k tokens — maioria das aplicações comuns</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Integração com Azure OpenAI Service e outros modelos no mesmo ambiente</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Faturamento unificado no Azure com créditos Enterprise Agreement existentes</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">🐙 GitHub Copilot</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">O <strong class="text-purple-400">GitHub Copilot</strong> integra o Opus 4.8 diretamente no ambiente de desenvolvimento — VS Code, JetBrains, Neovim e outros editores — trazendo a inteligência do modelo para dentro do fluxo de código sem sair do IDE.</p>
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><span class="mr-2">💻</span> O que muda com o Opus 4.8 no Copilot</h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Chat mais inteligente:</strong> perguntas complexas de arquitetura e refatoração com mais profundidade.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Contexto de 1M tokens:</strong> o Copilot pode enviar mais do repositório como contexto.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Geração de testes:</strong> suítes mais completas e semanticamente corretas.</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Review de PR:</strong> análise mais profunda de diffs e sugestões de melhoria.</span></li>
+        </ul>
+      </div>
+
+      <!-- Timeline de adoção por plataforma -->
+      <div class="mb-6">
+        <h3 class="text-base font-semibold text-neutral-300 mb-4">Resumo comparativo das 6 plataformas</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-dark-600">
+                <th class="text-left py-3 px-4 text-neutral-400 font-medium">Plataforma</th>
+                <th class="text-left py-3 px-4 text-neutral-400 font-medium">Contexto</th>
+                <th class="text-left py-3 px-4 text-neutral-400 font-medium">Melhor para</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-dark-600">
+              <tr class="hover:bg-dark-800/50 transition-colors">
+                <td class="py-3 px-4 font-medium text-white">claude.ai</td>
+                <td class="py-3 px-4 text-purple-400">1M tokens</td>
+                <td class="py-3 px-4 text-neutral-300">Uso pessoal / exploração</td>
+              </tr>
+              <tr class="hover:bg-dark-800/50 transition-colors">
+                <td class="py-3 px-4 font-medium text-white">Claude API</td>
+                <td class="py-3 px-4 text-purple-400">1M tokens</td>
+                <td class="py-3 px-4 text-neutral-300">Integrações programáticas</td>
+              </tr>
+              <tr class="hover:bg-dark-800/50 transition-colors">
+                <td class="py-3 px-4 font-medium text-white">AWS Bedrock</td>
+                <td class="py-3 px-4 text-purple-400">1M tokens</td>
+                <td class="py-3 px-4 text-neutral-300">Infra AWS / compliance</td>
+              </tr>
+              <tr class="hover:bg-dark-800/50 transition-colors">
+                <td class="py-3 px-4 font-medium text-white">Google Vertex</td>
+                <td class="py-3 px-4 text-purple-400">1M tokens</td>
+                <td class="py-3 px-4 text-neutral-300">Ecossistema GCP / ML</td>
+              </tr>
+              <tr class="hover:bg-dark-800/50 transition-colors">
+                <td class="py-3 px-4 font-medium text-white">MS Foundry</td>
+                <td class="py-3 px-4 text-red-400">200k tokens ⚠️</td>
+                <td class="py-3 px-4 text-neutral-300">Infra Azure existente</td>
+              </tr>
+              <tr class="hover:bg-dark-800/50 transition-colors">
+                <td class="py-3 px-4 font-medium text-white">GitHub Copilot</td>
+                <td class="py-3 px-4 text-purple-400">1M tokens</td>
+                <td class="py-3 px-4 text-neutral-300">Desenvolvimento no IDE</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Como escolher</h3>
+        <p class="text-neutral-300">O critério principal é onde sua infraestrutura já está. Se você não tem preferência de cloud, a API direta da Anthropic oferece máxima flexibilidade e o menor overhead. Para desenvolvimento no dia a dia, o GitHub Copilot é a opção com menor fricção.</p>
+      </div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">📌</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">6 plataformas</strong><span class="text-neutral-400"> — claude.ai, API, Bedrock, Vertex AI, Foundry e GitHub Copilot.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">1M de contexto na maioria</strong><span class="text-neutral-400"> — exceto Microsoft Foundry, que limita a 200k tokens.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">128k de saída</strong><span class="text-neutral-400"> — limite de output mantido em todas as plataformas.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Modelo ID</strong><span class="text-neutral-400"> — <code class="bg-dark-700 px-1 rounded text-purple-400">claude-opus-4-8</code> na API Anthropic, nomes variam por provedor.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Escolha pela infra</strong><span class="text-neutral-400"> — use onde você já tem compliance, contratos e equipe treinada.</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-purple-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">3.4 — Casos de uso avançados e estratégias de implementação</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-start">
+          <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para Trilha</a>
+          <a href="modulo-3-4.html" class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm"><p>Dominando o Claude Opus 4.8 · Módulo 3.3 · <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> · 2026</p></div></footer>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const d = document.getElementById('theme-toggle-dark-icon'); const l = document.getElementById('theme-toggle-light-icon'); const html = document.documentElement;
+    if (localStorage.getItem('theme')==='light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) { d.classList.remove('hidden'); html.classList.remove('dark'); } else { l.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => { d.classList.toggle('hidden'); l.classList.toggle('hidden'); html.classList.toggle('dark'); localStorage.setItem('theme', html.classList.contains('dark')?'dark':'light'); });
+  </script>
+</body>
+</html>

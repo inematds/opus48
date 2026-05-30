@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 2.5 · Preços e custo | Opus 4.8</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(220,38,38,0.07); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between items-center h-14">
+      <div class="flex items-center space-x-4">
+        <a href="../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300"><span class="text-2xl">🤖</span><span class="font-bold text-lg hidden sm:inline">Opus 4.8</span></a>
+        <span class="text-neutral-600">|</span>
+        <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+      </div>
+      <div class="flex items-center space-x-1 sm:space-x-2">
+        <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Capacidades</span></a>
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10"><span class="sm:hidden">T2</span><span class="hidden sm:inline">O que mudou</span></a>
+        <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Na prática</span></a>
+        <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        </button>
+      </div>
+    </div></div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../index.html" class="hover:text-blue-400">Início</a><span>/</span>
+      <a href="index.html" class="hover:text-blue-400">Trilha 2</a><span>/</span><span class="text-blue-400">Módulo 2.5</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">MÓDULO 2.5</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">💰 Preços e custo</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Tabela completa de preços, estratégias de cache, batch e fast mode. Como orçar seu uso do Opus 4.8 sem surpresas na fatura.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">30</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Básico</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Prático</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">🏷️ Preço regular — igual ao 4.7 e 4.6</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A Anthropic manteve o preço de lista inalterado na transição do 4.7 para o 4.8: <strong class="text-blue-400">US$5/M tokens de entrada</strong> e <strong class="text-blue-400">US$25/M tokens de saída</strong>. Você recebe mais capacidade pelo mesmo preço.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">💵</span> Tabela de preço regular (por milhão de tokens)</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-neutral-300">
+            <thead><tr class="border-b border-dark-600 text-left">
+              <th class="py-2 pr-6 text-blue-400 font-semibold">Modelo</th>
+              <th class="py-2 pr-4 text-blue-400 font-semibold">Entrada</th>
+              <th class="py-2 pr-4 text-blue-400 font-semibold">Saída</th>
+              <th class="py-2 text-blue-400 font-semibold">Status</th>
+            </tr></thead>
+            <tbody class="divide-y divide-dark-600">
+              <tr class="hover:bg-dark-700/40">
+                <td class="py-2 pr-6 font-medium text-white">Claude Opus 4.8</td>
+                <td class="py-2 pr-4 text-blue-400 font-bold">US$5</td>
+                <td class="py-2 pr-4 text-blue-400 font-bold">US$25</td>
+                <td class="py-2"><span class="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 text-xs">Atual</span></td>
+              </tr>
+              <tr class="hover:bg-dark-700/40">
+                <td class="py-2 pr-6">Claude Opus 4.7</td>
+                <td class="py-2 pr-4">US$5</td>
+                <td class="py-2 pr-4">US$25</td>
+                <td class="py-2 text-neutral-500">16/04/2026</td>
+              </tr>
+              <tr class="hover:bg-dark-700/40">
+                <td class="py-2 pr-6">Claude Opus 4.6</td>
+                <td class="py-2 pr-4">US$5</td>
+                <td class="py-2 pr-4">US$25</td>
+                <td class="py-2 text-neutral-500">Anterior</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> O que isso significa</h3>
+        <p class="text-neutral-300">Se você já usa 4.7 ou 4.6, a migração para 4.8 é custo-neutro. Você só precisa atualizar o <code>model_id</code> na sua chamada de API.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">⚡ Prompt caching — até 90% de economia</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O <strong class="text-blue-400">prompt caching</strong> armazena prefixos de contexto no servidor. Nas chamadas subsequentes, você paga apenas o preço de hit de cache, que é 10× menor que a entrada regular.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🗄️</span> Preços de cache (por milhão de tokens)</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-neutral-300">
+            <thead><tr class="border-b border-dark-600 text-left">
+              <th class="py-2 pr-6 text-blue-400 font-semibold">Operação</th>
+              <th class="py-2 pr-4 text-blue-400 font-semibold">Preço / M tokens</th>
+              <th class="py-2 text-blue-400 font-semibold">Detalhe</th>
+            </tr></thead>
+            <tbody class="divide-y divide-dark-600">
+              <tr class="hover:bg-dark-700/40">
+                <td class="py-2 pr-6 font-medium">Cache write (TTL 5 min)</td>
+                <td class="py-2 pr-4 text-blue-400 font-bold">US$6,25</td>
+                <td class="py-2 text-neutral-400">Gravação com TTL curto</td>
+              </tr>
+              <tr class="hover:bg-dark-700/40">
+                <td class="py-2 pr-6 font-medium">Cache write (TTL 1 hora)</td>
+                <td class="py-2 pr-4 text-blue-400 font-bold">US$10</td>
+                <td class="py-2 text-neutral-400">Gravação com TTL longo</td>
+              </tr>
+              <tr class="hover:bg-dark-700/40">
+                <td class="py-2 pr-6 font-medium">Cache hit (leitura)</td>
+                <td class="py-2 pr-4 text-blue-400 font-bold">US$0,50</td>
+                <td class="py-2 text-neutral-400">10× mais barato que entrada</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+          <h4 class="font-bold text-blue-400 mb-4">✓ Quando usar cache</h4>
+          <ul class="space-y-3 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>System prompt longo e repetitivo</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Contexto de repositório que não muda</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>&gt;10 chamadas/dia com mesmo prefixo</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Não vale o cache quando</h4>
+          <ul class="space-y-3 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Contexto muda a cada chamada</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Volume baixo (menos de 5 hits por write)</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Prefixo muito curto (&lt;1k tokens)</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">📦 Batch — 50% de desconto</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A API de <strong class="text-blue-400">Batch</strong> processa requisições de forma assíncrona com SLA de 24 horas. O desconto é de <strong class="text-blue-400">50%</strong> sobre o preço regular: US$2,50/M entrada e US$12,50/M saída.
+      </p>
+      <div class="space-y-6 mb-6">
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">1</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Quando usar Batch</h4>
+            <p class="text-neutral-300 text-sm">Processamentos que não precisam de resposta imediata: geração de relatórios nocturnos, indexação de documentos, análise de logs, treinamento de datasets.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">2</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Combinação com cache</h4>
+            <p class="text-neutral-300 text-sm">Batch + cache simultâneos se acumulam: você pode economizar até ~70% num workload com contexto repetitivo processado em lote.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">3</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">SLA e garantias</h4>
+            <p class="text-neutral-300 text-sm">O SLA é de processamento em até 24 horas. Para uso em produção com latência crítica, prefira o modo síncrono regular.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">🚀 Fast mode — 2,5× mais rápido, 3× mais barato que o 4.7 fast</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O <strong class="text-blue-400">Fast mode</strong> do 4.8 custa <strong class="text-blue-400">US$10/M entrada</strong> e <strong class="text-blue-400">US$50/M saída</strong>, mas entrega aproximadamente <strong class="text-blue-400">2,5× mais velocidade</strong> que o modo regular — e é <strong class="text-blue-400">~3× mais barato que o fast mode do 4.7</strong> para a mesma qualidade entregue.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">⚡</span> Fast mode — comparativo</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-neutral-300">
+            <thead><tr class="border-b border-dark-600 text-left">
+              <th class="py-2 pr-6 text-blue-400 font-semibold">Modelo / Modo</th>
+              <th class="py-2 pr-4 text-blue-400 font-semibold">Entrada /M</th>
+              <th class="py-2 pr-4 text-blue-400 font-semibold">Saída /M</th>
+              <th class="py-2 text-blue-400 font-semibold">Velocidade</th>
+            </tr></thead>
+            <tbody class="divide-y divide-dark-600">
+              <tr class="hover:bg-dark-700/40">
+                <td class="py-2 pr-6 font-medium text-white">Opus 4.8 fast</td>
+                <td class="py-2 pr-4 text-blue-400 font-bold">US$10</td>
+                <td class="py-2 pr-4 text-blue-400 font-bold">US$50</td>
+                <td class="py-2 text-blue-400">~2,5× regular</td>
+              </tr>
+              <tr class="hover:bg-dark-700/40">
+                <td class="py-2 pr-6">Opus 4.8 regular</td>
+                <td class="py-2 pr-4">US$5</td>
+                <td class="py-2 pr-4">US$25</td>
+                <td class="py-2 text-neutral-400">Referência</td>
+              </tr>
+              <tr class="hover:bg-dark-700/40">
+                <td class="py-2 pr-6">Opus 4.7 fast</td>
+                <td class="py-2 pr-4">~US$30</td>
+                <td class="py-2 pr-4">~US$150</td>
+                <td class="py-2 text-neutral-400">~3× mais caro pelo mesmo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Quando usar fast mode</h3>
+        <p class="text-neutral-300">Interfaces interativas onde latência é perceptível pelo usuário: chat ao vivo, autocompletar, respostas em menos de 2 segundos. O custo 2× maior pode ser justificado pela experiência do produto.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">📊 Tabela completa — 4.8 vs 4.7 vs 4.6</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Visão unificada de todos os preços para facilitar decisões de migração e comparação cross-geração.</p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">💹</span> Comparativo completo de preços (US$ / M tokens)</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-neutral-300">
+            <thead><tr class="border-b border-dark-600 text-left">
+              <th class="py-2 pr-4 text-blue-400 font-semibold">Modelo</th>
+              <th class="py-2 pr-4 text-blue-400 font-semibold">Entrada</th>
+              <th class="py-2 pr-4 text-blue-400 font-semibold">Cache write 5m</th>
+              <th class="py-2 pr-4 text-blue-400 font-semibold">Cache write 1h</th>
+              <th class="py-2 pr-4 text-blue-400 font-semibold">Cache hit</th>
+              <th class="py-2 pr-4 text-blue-400 font-semibold">Saída</th>
+              <th class="py-2 text-blue-400 font-semibold">Batch (-50%)</th>
+            </tr></thead>
+            <tbody class="divide-y divide-dark-600">
+              <tr class="hover:bg-dark-700/40 bg-blue-500/5">
+                <td class="py-2 pr-4 font-medium text-white">Opus 4.8 regular</td>
+                <td class="py-2 pr-4 text-blue-400 font-bold">$5</td>
+                <td class="py-2 pr-4 text-blue-400">$6,25</td>
+                <td class="py-2 pr-4 text-blue-400">$10</td>
+                <td class="py-2 pr-4 text-blue-400">$0,50</td>
+                <td class="py-2 pr-4 text-blue-400 font-bold">$25</td>
+                <td class="py-2 text-blue-400">$2,50 / $12,50</td>
+              </tr>
+              <tr class="hover:bg-dark-700/40 bg-blue-500/5">
+                <td class="py-2 pr-4 font-medium text-white">Opus 4.8 fast</td>
+                <td class="py-2 pr-4 text-blue-400 font-bold">$10</td>
+                <td class="py-2 pr-4">—</td>
+                <td class="py-2 pr-4">—</td>
+                <td class="py-2 pr-4">—</td>
+                <td class="py-2 pr-4 text-blue-400 font-bold">$50</td>
+                <td class="py-2">—</td>
+              </tr>
+              <tr class="hover:bg-dark-700/40">
+                <td class="py-2 pr-4">Opus 4.7 regular</td>
+                <td class="py-2 pr-4">$5</td>
+                <td class="py-2 pr-4">$6,25</td>
+                <td class="py-2 pr-4">$10</td>
+                <td class="py-2 pr-4">$0,50</td>
+                <td class="py-2 pr-4">$25</td>
+                <td class="py-2">$2,50 / $12,50</td>
+              </tr>
+              <tr class="hover:bg-dark-700/40">
+                <td class="py-2 pr-4">Opus 4.6 regular</td>
+                <td class="py-2 pr-4">$5</td>
+                <td class="py-2 pr-4">$6,25</td>
+                <td class="py-2 pr-4">$10</td>
+                <td class="py-2 pr-4">$0,50</td>
+                <td class="py-2 pr-4">$25</td>
+                <td class="py-2">$2,50 / $12,50</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-neutral-500 mt-3">Preços em dólares americanos por milhão de tokens. Fonte: Anthropic pricing page, maio 2026.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">🧮 Como orçar seu uso</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Saber calcular o custo antes de produção evita surpresas. A fórmula é simples: tokens × preço por modo.</p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🔢</span> Exemplo de orçamento</h3>
+        <div class="space-y-4 text-neutral-300 text-sm">
+          <div class="bg-dark-700/50 rounded-lg p-4">
+            <p class="font-semibold text-blue-400 mb-2">Cenário: 1.000 chamadas/dia, 10k tokens entrada + 2k saída cada</p>
+            <ul class="space-y-1">
+              <li>Entrada: 1.000 × 10.000 = 10M tokens → 10M × US$5/M = <strong class="text-white">US$50/dia</strong></li>
+              <li>Saída: 1.000 × 2.000 = 2M tokens → 2M × US$25/M = <strong class="text-white">US$50/dia</strong></li>
+              <li>Total regular: <strong class="text-blue-400">US$100/dia</strong></li>
+            </ul>
+          </div>
+          <div class="bg-dark-700/50 rounded-lg p-4">
+            <p class="font-semibold text-blue-400 mb-2">Com cache (sistema de 9k fixos + 1k variável)</p>
+            <ul class="space-y-1">
+              <li>Write (1x/dia, TTL 1h): 9k × US$10/M = <strong class="text-white">US$0,09/dia</strong></li>
+              <li>Cache hits (999×): 9M × US$0,50/M = <strong class="text-white">US$4,50/dia</strong></li>
+              <li>Variável + saída: mesmo que antes = US$55/dia</li>
+              <li>Total com cache: <strong class="text-blue-400">~US$60/dia</strong> (40% de economia)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+          <h4 class="font-bold text-blue-400 mb-3">✓ Estratégia de economia</h4>
+          <ul class="space-y-2 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-blue-400">1</span><span>Identifique contexto repetitivo → aplique cache</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">2</span><span>Workloads assíncronos → use batch (-50%)</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">3</span><span>Só use fast mode onde latência importa para o usuário</span></li>
+          </ul>
+        </div>
+        <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+          <h4 class="font-bold text-primary mb-3">💡 Regra dos três passos</h4>
+          <ul class="space-y-2 text-neutral-300 text-sm">
+            <li class="flex items-start space-x-2"><span class="text-primary">1</span><span>Meça tokens reais num dia de produção</span></li>
+            <li class="flex items-start space-x-2"><span class="text-primary">2</span><span>Calcule sem otimização (linha de base)</span></li>
+            <li class="flex items-start space-x-2"><span class="text-primary">3</span><span>Aplique cache + batch progressivamente</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">📌</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Regular:</strong><span class="text-neutral-400"> US$5/M entrada, US$25/M saída — igual ao 4.7.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Cache:</strong><span class="text-neutral-400"> write US$6,25–US$10/M, hit US$0,50/M — até 90% de economia.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Batch:</strong><span class="text-neutral-400"> -50% sobre regular, assíncrono, SLA 24h.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Fast mode:</strong><span class="text-neutral-400"> US$10/US$50 /M, ~2,5× mais rápido, ~3× mais barato que o fast do 4.7.</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-blue-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">2.6 — Exercícios da Trilha 2</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para Trilha</a>
+          <a href="modulo-2-6.html" class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors">Próximo: Exercícios →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm"><p>Dominando o Claude Opus 4.8 · Módulo 2.5 · INEMA.CLUB · 2026</p></div></footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const d = document.getElementById('theme-toggle-dark-icon'); const l = document.getElementById('theme-toggle-light-icon'); const html = document.documentElement;
+    if (localStorage.getItem('theme')==='light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) { d.classList.remove('hidden'); html.classList.remove('dark'); } else { l.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => { d.classList.toggle('hidden'); l.classList.toggle('hidden'); html.classList.toggle('dark'); localStorage.setItem('theme', html.classList.contains('dark')?'dark':'light'); });
+  </script>
+</body>
+</html>
