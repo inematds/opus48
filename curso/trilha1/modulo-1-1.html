@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 1.1 · Apresentando o Opus 4.8 | Opus 4.8</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(220,38,38,0.07); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🤖</span><span class="font-bold text-lg hidden sm:inline">Opus 4.8</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Capacidades</span></a>
+          <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">O que mudou</span></a>
+          <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Na prática</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../index.html" class="hover:text-emerald-400">Início</a><span>/</span>
+      <a href="index.html" class="hover:text-emerald-400">Trilha 1</a><span>/</span>
+      <span class="text-emerald-400">Módulo 1.1</span>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MÓDULO 1.1</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🚀 Apresentando o Claude Opus 4.8</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">O que é o modelo, quando foi lançado, como a Anthropic o posiciona e por que ele importa para quem constrói com IA.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">30</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Básico</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Teoria</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">📅 O lançamento</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">O Claude Opus 4.8 foi anunciado pela Anthropic em <strong class="text-emerald-400">28 de maio de 2026</strong>, uma quinta-feira, e ficou <strong class="text-emerald-400">disponível em todos os canais no mesmo dia</strong>. Foi o lançamento mais rápido da família Opus 4.x — cerca de 42 dias após o Opus 4.7.</p>
+
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><span class="mr-2">🗓️</span> A cadência da família 4.x</h3>
+        <p class="text-neutral-300 mb-4">A linha do tempo mostra um ritmo que acelerou bruscamente no 4.8:</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Opus 4.5</strong> — 24/11/2025</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Opus 4.6</strong> — 05/02/2026 (~73 dias)</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Opus 4.7</strong> — 16/04/2026 (~70 dias)</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Opus 4.8</strong> — 28/05/2026 (<strong class="text-emerald-400">~42 dias</strong>)</span></li>
+        </ul>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+        <p class="text-neutral-300">Algumas fontes citam "41 dias" entre 4.7 e 4.8 — é arredondamento. O intervalo real entre 16/04 e 28/05 é de <strong>42 dias</strong>. Pequenos desencontros assim são comuns na cobertura de lançamento.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Data</div><div class="text-sm text-neutral-300">28/05/2026</div></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Dia</div><div class="text-sm text-neutral-300">Quinta-feira</div></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Intervalo</div><div class="text-sm text-neutral-300">~42 dias após 4.7</div></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600"><div class="text-emerald-400 font-bold text-sm mb-1">Disponibilidade</div><div class="text-sm text-neutral-300">Imediata</div></div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">🏆 Posicionamento</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">A Anthropic descreve o Opus 4.8 como seu <strong class="text-emerald-400">"modelo mais capaz geralmente disponível"</strong>, construído sobre o Opus 4.7. O foco declarado é <strong class="text-emerald-400">coding agêntico</strong> e <strong class="text-emerald-400">agentes de IA</strong>.</p>
+
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📊</span> O que a Anthropic afirma</h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>"Most capable generally available model to date"</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Modelo de raciocínio híbrido que "pushes the frontier for coding and AI agents"</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Indicado para tarefas autônomas que "span hours of independent operation"</span></li>
+        </ul>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">✓ Para o que ele é</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Raciocínio complexo e multi-passo</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Coding agêntico de longo horizonte</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Trabalho de conhecimento profundo</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Para o que ele é exagero</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Classificação trivial de alto volume</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Respostas curtas e simples (use Haiku/Sonnet)</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Tarefas onde latência mínima é crítica</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-sm text-neutral-500"><strong>Ressalva:</strong> "mais capaz" é posicionamento da própria Anthropic (marketing de fornecedor). A Trilha 2 examina os benchmarks por trás dessa afirmação.</p>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">🆔 Model ID e família</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Na API, o modelo é chamado pelo identificador <strong class="text-emerald-400">claude-opus-4-8</strong>. Ele pertence à família Opus 4.x e herda a arquitetura do 4.7.</p>
+
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-sm font-semibold text-neutral-400 mb-3">Exemplo de chamada (conceitual)</h3>
+        <pre class="font-mono text-sm text-emerald-400 bg-dark-900 rounded-lg p-4 overflow-x-auto">{
+  "model": "claude-opus-4-8",
+  "max_tokens": 4096,
+  "messages": [
+    { "role": "user", "content": "Explique o que mudou no Opus 4.8." }
+  ]
+}</pre>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+        <p class="text-neutral-300">Use sempre o ID exato <code>claude-opus-4-8</code>. No Vertex AI e no Bedrock o identificador pode ter prefixos da plataforma, mas o nome do modelo é o mesmo.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">🧬 O que é um modelo híbrido</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">"Híbrido" significa que o <strong class="text-emerald-400">mesmo modelo</strong> pode responder direto ou raciocinar antes de responder, decidindo conforme a dificuldade — sem você trocar de modelo.</p>
+
+      <div class="space-y-6 mb-6">
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold">1</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Pergunta simples</h4>
+            <p class="text-sm text-neutral-400 mb-3">Ex.: "Qual a capital da França?"</p>
+            <p class="text-neutral-300 text-sm">Responde direto, sem gastar tokens de raciocínio.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold">2</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Problema difícil</h4>
+            <p class="text-sm text-neutral-400 mb-3">Ex.: refatorar um módulo com dependências cruzadas</p>
+            <p class="text-neutral-300 text-sm">Aciona o pensamento adaptativo e raciocina passo a passo antes de agir.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+        <p class="text-neutral-300">O modo híbrido é a base do <strong>controle de esforço</strong> (módulo 1.4): você ajusta o teto desse raciocínio adaptativo.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">🌐 Onde está disponível</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">O Opus 4.8 chegou ao mercado em <strong class="text-emerald-400">seis canais</strong> simultaneamente. A escolha da plataforma afeta limites — detalhada na Trilha 3.</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600 text-center"><div class="text-2xl mb-1">💬</div><div class="text-sm font-semibold text-neutral-300">claude.ai</div></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600 text-center"><div class="text-2xl mb-1">🔌</div><div class="text-sm font-semibold text-neutral-300">Claude API</div></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600 text-center"><div class="text-2xl mb-1">☁️</div><div class="text-sm font-semibold text-neutral-300">Amazon Bedrock</div></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600 text-center"><div class="text-2xl mb-1">🟦</div><div class="text-sm font-semibold text-neutral-300">Google Vertex AI</div></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600 text-center"><div class="text-2xl mb-1">🟪</div><div class="text-sm font-semibold text-neutral-300">Microsoft Foundry</div></div>
+        <div class="bg-dark-800 rounded-lg p-4 border border-dark-600 text-center"><div class="text-2xl mb-1">🐙</div><div class="text-sm font-semibold text-neutral-300">GitHub Copilot</div></div>
+      </div>
+
+      <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+        <h3 class="text-lg font-semibold text-red-400 mb-3 flex items-center"><span class="mr-2">⚠️</span> Atenção ao Foundry</h3>
+        <p class="text-neutral-300">No Microsoft Foundry o contexto é limitado a <strong>200k tokens</strong>, não 1M. Se o seu caso depende de contexto enorme, escolha API, Bedrock ou Vertex AI.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">🎯 Por que ele importa</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">O grande argumento do 4.8 é <strong class="text-emerald-400">autonomia de longa duração</strong>: sustentar tarefas de horas com comportamento previsível, menos variância e menos ciclos de revisão humana.</p>
+
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><span class="mr-2">🚀</span> O ganho central</h3>
+        <p class="text-neutral-300 mb-4">A Anthropic resume o objetivo do modelo assim: ir de "coding agêntico e trabalho de conhecimento profundo" a "tarefas autônomas multi-estágio que duram horas de operação independente", levando a "comportamento mais previsível em escala, com menor variância de saída e menos ciclos de revisão".</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Menos supervisão humana por tarefa</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Resultados mais consistentes entre execuções</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Agentes que rodam por mais tempo sem quebrar</span></li>
+        </ul>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+        <p class="text-neutral-300">Reserve o Opus 4.8 para o que ele faz de melhor: tarefas longas, complexas e de alto valor. Para o resto, modelos menores entregam mais barato.</p>
+      </div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">📌</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Lançamento</strong><span class="text-neutral-400"> — 28/05/2026, ~42 dias após o 4.7 (ciclo mais rápido da família).</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Posicionamento</strong><span class="text-neutral-400"> — modelo mais capaz da Anthropic, focado em coding e agentes.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Model ID</strong><span class="text-neutral-400"> — claude-opus-4-8, família Opus 4.x.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Híbrido</strong><span class="text-neutral-400"> — raciocínio adaptativo num único modelo.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Disponibilidade</strong><span class="text-neutral-400"> — 6 canais; Foundry limitado a 200k.</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-emerald-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">1.2 — Raciocínio híbrido & pensamento adaptativo</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para Trilha</a>
+          <a href="modulo-1-2.html" class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Dominando o Claude Opus 4.8 · Módulo 1.1 · INEMA.CLUB · 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) {
+      themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark');
+    } else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden'); themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark'); localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>
