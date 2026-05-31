@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 4.1 · O que são Dynamic Workflows | Opus 4.8</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-amber-400 { color: #92400e; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(217,119,6,0.14); }
+    html:not(.dark) .bg-amber-500\/10 { background-color: rgba(217,119,6,0.09); }
+    html:not(.dark) .bg-amber-900\/20 { background-color: rgba(217,119,6,0.09); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(217,119,6,0.28); }
+    html:not(.dark) .hover\:bg-amber-500\/30:hover { background-color: rgba(217,119,6,0.2); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(220,38,38,0.07); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; }
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-agent { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-agent:nth-child(2){animation-delay:.2s} .wf-agent:nth-child(3){animation-delay:.4s}
+      .wf-agent:nth-child(4){animation-delay:.6s} .wf-agent:nth-child(5){animation-delay:.8s}
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between items-center h-14">
+      <div class="flex items-center space-x-4">
+        <a href="../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300"><span class="text-2xl">🤖</span><span class="font-bold text-lg hidden sm:inline">Opus 4.8</span></a>
+        <span class="text-neutral-600">|</span>
+        <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+      </div>
+      <div class="flex items-center space-x-1 sm:space-x-2">
+        <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Capacidades</span></a>
+        <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">O que mudou</span></a>
+        <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Na prática</span></a>
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-amber-400 bg-amber-500/10"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Fluxos Dinâmicos</span></a>
+        <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        </button>
+      </div>
+    </div></div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../index.html" class="hover:text-amber-400">Início</a><span>/</span>
+      <a href="index.html" class="hover:text-amber-400">Trilha 4</a><span>/</span><span class="text-amber-400">Módulo 4.1</span>
+    </div>
+  </nav>
+
+  <header class="relative overflow-hidden bg-gradient-to-br from-amber-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full mb-4">MÓDULO 4.1</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🛰️ O que são Dynamic Workflows</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl mb-8">O recurso que chegou com o Opus 4.8 e muda a escala do que o Claude Code consegue fazer numa só sessão: ele planeja o trabalho, transforma o plano em código e dispara muitos agentes em paralelo — devolvendo um único resultado.</p>
+
+      <!-- HERO FUTURISTA -->
+      <div class="rounded-2xl border border-amber-500/30 bg-dark-900/40 p-3 sm:p-4 mb-8 overflow-hidden">
+        <svg viewBox="0 0 1000 220" class="w-full h-auto" role="img" aria-label="Você descreve o objetivo; o Claude desenha o pipeline em código e dispara agentes em paralelo">
+          <defs>
+            <linearGradient id="m1-amber" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#f59e0b"/></linearGradient>
+            <filter id="m1-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <pattern id="m1-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#f59e0b" opacity="0.12"/></pattern>
+            <marker id="m1-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#fbbf24"/></marker>
+            <marker id="m1-ahc" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"/></marker>
+          </defs>
+          <rect x="0" y="0" width="1000" height="220" fill="url(#m1-grid)"/>
+          <!-- objetivo -->
+          <g filter="url(#m1-glow)"><rect x="28" y="82" width="150" height="56" rx="13" fill="#1f1604" stroke="url(#m1-amber)" stroke-width="2.5"/></g>
+          <text x="103" y="106" text-anchor="middle" fill="#fbbf24" font-family="Inter,sans-serif" font-weight="700" font-size="16">Seu objetivo</text>
+          <text x="103" y="125" text-anchor="middle" fill="#fcd9a0" font-family="Inter,sans-serif" font-size="12">"audite isto"</text>
+          <!-- script -->
+          <g fill="none" stroke="#fbbf24" stroke-width="2" opacity="0.7"><path d="M178,110 L252,110" marker-end="url(#m1-ah)"/></g>
+          <g filter="url(#m1-glow)"><rect x="256" y="82" width="150" height="56" rx="13" fill="#0e1b26" stroke="#38bdf8" stroke-width="2.5"/></g>
+          <text x="331" y="106" text-anchor="middle" fill="#9ad6ff" font-family="Inter,sans-serif" font-weight="700" font-size="15">plano = código</text>
+          <text x="331" y="125" text-anchor="middle" fill="#bfe6ff" font-family="ui-monospace,monospace" font-size="12">workflow.js</text>
+          <!-- fan out to agents -->
+          <g fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.6">
+            <path d="M406,110 C470,110 480,48 556,48" marker-end="url(#m1-ahc)"/>
+            <path d="M406,110 C470,110 480,89 556,89" marker-end="url(#m1-ahc)"/>
+            <path d="M406,110 L556,130" marker-end="url(#m1-ahc)"/>
+            <path d="M406,110 C470,110 480,171 556,171" marker-end="url(#m1-ahc)"/>
+          </g>
+          <g font-family="Inter,sans-serif" font-size="12.5" font-weight="600">
+            <g class="wf-agent"><rect x="556" y="32" width="120" height="30" rx="8" fill="#0e1b26" stroke="#38bdf8" stroke-width="1.8"/><text x="616" y="52" text-anchor="middle" fill="#bfe6ff">agente</text></g>
+            <g class="wf-agent"><rect x="556" y="74" width="120" height="30" rx="8" fill="#0e1b26" stroke="#38bdf8" stroke-width="1.8"/><text x="616" y="94" text-anchor="middle" fill="#bfe6ff">agente</text></g>
+            <g class="wf-agent"><rect x="556" y="116" width="120" height="30" rx="8" fill="#0e1b26" stroke="#38bdf8" stroke-width="1.8"/><text x="616" y="136" text-anchor="middle" fill="#bfe6ff">agente</text></g>
+            <g class="wf-agent"><rect x="556" y="158" width="120" height="30" rx="8" fill="#0e1b26" stroke="#38bdf8" stroke-width="1.8"/><text x="616" y="178" text-anchor="middle" fill="#bfe6ff">agente …</text></g>
+          </g>
+          <!-- merge to result -->
+          <g fill="none" stroke="#fbbf24" stroke-width="2" opacity="0.65">
+            <path d="M676,48  C760,48 770,110 824,110" marker-end="url(#m1-ah)"/>
+            <path d="M676,89  C760,89 770,110 824,110" marker-end="url(#m1-ah)"/>
+            <path d="M676,131 C760,131 770,110 824,110" marker-end="url(#m1-ah)"/>
+            <path d="M676,173 C760,173 770,110 824,110" marker-end="url(#m1-ah)"/>
+          </g>
+          <g filter="url(#m1-glow)"><rect x="824" y="82" width="150" height="56" rx="13" fill="#1f1604" stroke="url(#m1-amber)" stroke-width="2.5"/></g>
+          <text x="899" y="106" text-anchor="middle" fill="#fbbf24" font-family="Inter,sans-serif" font-weight="700" font-size="16">1 resultado</text>
+          <text x="899" y="125" text-anchor="middle" fill="#fcd9a0" font-family="Inter,sans-serif" font-size="12">mesclado</text>
+        </svg>
+      </div>
+
+      <div class="grid grid-cols-4 gap-4 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">30</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Inter.</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Teoria</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">1</span><h2 class="text-2xl font-bold">🚀 Chegou com o Opus 4.8</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Os <strong class="text-amber-400">Dynamic Workflows</strong> são um recurso do Claude Code lançado junto do Opus 4.8, ainda em <em>research preview</em>. A ideia central: em vez de você guiar passo a passo, o modelo <strong class="text-amber-400">planeja o trabalho</strong> e dispara muitos subagentes em paralelo numa única sessão — com as saídas verificadas no fim.</p>
+      <div class="bg-gradient-to-br from-amber-900/30 to-dark-800 rounded-xl border border-amber-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-amber-400 mb-4 flex items-center"><span class="mr-2">🧭</span> Em uma frase</h3>
+        <p class="text-neutral-300">Você descreve o objetivo final; o Claude monta o pipeline e o executa. É a forma mais "larga" de paralelismo no Claude Code — e a que mais consome tokens.</p>
+      </div>
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📊</span> O que o 4.8 trouxe</h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Workflows dinâmicos como recurso de research preview no Claude Code</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Com o 4.8, os agentes conseguem <strong>rodar por mais tempo</strong></span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Verificação das saídas antes de mesclar o resultado</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">2</span><h2 class="text-2xl font-bold">⚡ Centenas de agentes em paralelo</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Um workflow pode subir <strong class="text-amber-400">até cerca de 1.000 agentes</strong>. Cada um trabalha sozinho, sem conversar com os outros, e os resultados são <strong class="text-amber-400">mesclados no fim</strong> e devolvidos à sessão principal. Como rodam em paralelo, o relógio anda rápido — mas a conta também.</p>
+      <div class="space-y-6 mb-6">
+        <div class="flex items-start space-x-4"><div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">1</span></div><div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600"><h4 class="font-semibold text-white mb-2">O Claude planeja</h4><p class="text-neutral-300 text-sm">A partir do seu objetivo, define quantos agentes, o que cada um faz e como os resultados se juntam.</p></div></div>
+        <div class="flex items-start space-x-4"><div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">2</span></div><div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600"><h4 class="font-semibold text-white mb-2">Os agentes executam em paralelo</h4><p class="text-neutral-300 text-sm">Cada agente tem seu próprio contexto e roda ao mesmo tempo que os demais. Eles não se falam.</p></div></div>
+        <div class="flex items-start space-x-4"><div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">3</span></div><div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600"><h4 class="font-semibold text-white mb-2">Os resultados se mesclam</h4><p class="text-neutral-300 text-sm">Tudo converge num único resultado, que volta para a sua sessão principal.</p></div></div>
+      </div>
+      <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+        <h3 class="text-lg font-semibold text-red-400 mb-3 flex items-center"><span class="mr-2">⚠️</span> O lado caro</h3>
+        <p class="text-neutral-300">Cada agente é uma <strong>chamada completa do Claude</strong>, com seu próprio contexto para ler. Muitos agentes = muitos tokens de entrada. No relato do vídeo, um único prompt mal-escopado consumiu metade de um plano de US$ 200/mês em pouco mais de 30 minutos.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">3</span><h2 class="text-2xl font-bold">🧠 Quem segura o plano?</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">A diferença mais conceitual entre o Claude "normal" e um workflow é <strong class="text-amber-400">onde mora o plano</strong>. No uso comum, o plano fica no contexto do modelo. No workflow, ele sai do contexto e vira código.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">Claude normal</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">•</span><span>Segura o plano inteiro "na cabeça"</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">•</span><span>Jobs grandes enchem o contexto e desaceleram</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">•</span><span>Tudo compete pela mesma janela</span></li>
+          </ul>
+        </div>
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">Um workflow</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>O plano vive em código e roda por conta própria</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>O Claude só vê o resultado final</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>A sessão principal fica limpa</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6"><h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Por que isso importa</h3><p class="text-neutral-300">Tirar o plano do contexto é exatamente o que permite atacar jobs gigantes (centenas de arquivos) sem afundar a sessão principal em ruído.</p></div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">4</span><h2 class="text-2xl font-bold">📜 O plano vira código</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Na prática, o Claude escreve um <strong class="text-amber-400">arquivo JavaScript</strong> que descreve o pipeline. Um runtime executa esse script em segundo plano enquanto você trabalha, e é ele quem orquestra os agentes.</p>
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <div class="flex items-center justify-between mb-3"><span class="text-xs uppercase tracking-wide text-neutral-500">workflow.js</span><span class="text-xs text-blue-400">JavaScript</span></div>
+        <pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><code><span class="text-purple-400">export const</span> meta = { name: <span class="text-emerald-400">"audit-skills"</span> }
+
+<span class="text-purple-400">const</span> files = listSkills()
+<span class="text-purple-400">await</span> <span class="text-blue-400">parallel</span>(
+  files.map(f =&gt; <span class="text-blue-400">agent</span>(<span class="text-emerald-400">"score "</span> + f))   <span class="text-neutral-500">// um agente Haiku por arquivo</span>
+)
+<span class="text-neutral-500">// → um scorecard ranqueado</span></code></pre>
+      </div>
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🧩</span> Consequências de ser código</h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>Inspecionável:</strong> você pode ver o script bruto antes de aprovar</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>Determinístico:</strong> loops, condicionais e fan-out controlados</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>Reutilizável:</strong> pode ser salvo e re-executado (módulo 4.5)</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">5</span><h2 class="text-2xl font-bold">🎨 "n8n que desenha o próprio canvas"</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Se você já usou n8n ou Make, a analogia fecha na hora: é como uma ferramenta de automação que <strong class="text-amber-400">constrói o próprio fluxograma</strong> a partir do que você pediu. Você não arrasta nós — você descreve o objetivo, e o Claude desenha a topologia e a roda.</p>
+      <div class="bg-gradient-to-br from-amber-900/30 to-dark-800 rounded-xl border border-amber-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-amber-400 mb-4 flex items-center"><span class="mr-2">🔁</span> Do objetivo ao pipeline</h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-amber-400 mt-1">•</span><span>Você dá o <strong>objetivo</strong> ("revise todos os endpoints por auth faltando")</span></li>
+          <li class="flex items-start space-x-2"><span class="text-amber-400 mt-1">•</span><span>O Claude decide a <strong>topologia</strong>: quantos agentes, em que fases, como mesclar</span></li>
+          <li class="flex items-start space-x-2"><span class="text-amber-400 mt-1">•</span><span>O runtime <strong>executa</strong> e devolve o resultado</span></li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6"><h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Guarde esta imagem</h3><p class="text-neutral-300">"Self-building canvas": o fluxograma não é desenhado por você antecipadamente — ele nasce do objetivo. É isso que torna o workflow <em>dinâmico</em>.</p></div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">6</span><h2 class="text-2xl font-bold">✅ Pede confirmação antes de rodar</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Um receio comum: "e se ele disparar um workflow caro sozinho?". Por padrão, <strong class="text-amber-400">não dispara</strong>. O Claude sempre confirma antes de rodar um workflow — e você pode ver o script bruto primeiro. Digitar a palavra "workflow" numa frase qualquer não aciona nada (no máximo ela fica destacada).</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">✓ O que FAZER</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Ler o escopo proposto antes de aprovar</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Pedir para ver o script bruto quando tiver dúvida</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Ser explícito: "monte um workflow dinâmico para…"</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ O que NÃO assumir</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Que ele dispara sozinho ao ouvir "workflow"</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Que dá para aprovar sem ler o escopo</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Que o custo é igual ao de uma resposta normal</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6"><h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">🛡️</span> Exceção: UltraCode</h3><p class="text-neutral-300">A única forma de o Claude orquestrar workflows sem ficar perguntando é o modo <strong>UltraCode</strong> — que veremos no módulo 4.5. Fora dele, a confirmação é a regra.</p></div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-amber-900/40 via-dark-800 to-dark-800 rounded-xl border border-amber-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">📌</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-white">Recurso do 4.8</strong><span class="text-neutral-400"> — research preview no Claude Code; o modelo planeja e paraleliza.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-white">Largura</strong><span class="text-neutral-400"> — até ~1.000 agentes solo, resultados mesclados; rápido, mas caro.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-white">Plano = código</strong><span class="text-neutral-400"> — um arquivo JS roda em background e orquestra tudo.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-white">Confirmação</strong><span class="text-neutral-400"> — pede aprovação antes de rodar (exceto UltraCode).</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8"><h3 class="font-semibold text-amber-400 mb-2">Próximo Módulo:</h3><p class="text-neutral-300">4.2 — A família de orquestração: Skill × Subagent × Agent Team × Workflow</p></div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para Trilha</a>
+          <a href="modulo-4-2.html" class="flex-1 text-center px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm"><p>Dominando o Claude Opus 4.8 · Módulo 4.1 · INEMA.CLUB · 2026</p></div></footer>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const d = document.getElementById('theme-toggle-dark-icon'); const l = document.getElementById('theme-toggle-light-icon'); const html = document.documentElement;
+    if (localStorage.getItem('theme')==='light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) { d.classList.remove('hidden'); html.classList.remove('dark'); } else { l.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => { d.classList.toggle('hidden'); l.classList.toggle('hidden'); html.classList.toggle('dark'); localStorage.setItem('theme', html.classList.contains('dark')?'dark':'light'); });
+  </script>
+</body>
+</html>

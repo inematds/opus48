@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trilha 4 · Fluxos Dinâmicos | Opus 4.8</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    .modal.hidden { display: none; }
+
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* acento amber (T4) */
+    html:not(.dark) .text-amber-400 { color: #92400e; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(217,119,6,0.14); }
+    html:not(.dark) .bg-amber-500\/10 { background-color: rgba(217,119,6,0.09); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(217,119,6,0.28); }
+    html:not(.dark) .hover\:bg-amber-500\/30:hover { background-color: rgba(217,119,6,0.2); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.09); }
+    html:not(.dark) .group:hover .group-hover\:text-amber-400 { color: #92400e; }
+    /* hover das outras trilhas no nav */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* Hero futurista — animação sutil dos agentes */
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-agent { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-agent:nth-child(2){animation-delay:.2s} .wf-agent:nth-child(3){animation-delay:.4s}
+      .wf-agent:nth-child(4){animation-delay:.6s} .wf-agent:nth-child(5){animation-delay:.8s}
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🤖</span><span class="font-bold text-lg hidden sm:inline">Opus 4.8</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors">
+            <span class="sm:hidden">T1</span><span class="hidden sm:inline">Capacidades</span></a>
+          <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors">
+            <span class="sm:hidden">T2</span><span class="hidden sm:inline">O que mudou</span></a>
+          <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors">
+            <span class="sm:hidden">T3</span><span class="hidden sm:inline">Na prática</span></a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-amber-400 bg-amber-500/10">
+            <span class="sm:hidden">T4</span><span class="hidden sm:inline">Fluxos Dinâmicos</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <header class="relative overflow-hidden bg-gradient-to-br from-amber-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full mb-4">TRILHA 4</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🔀 Fluxos Dinâmicos</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl mb-8">Dynamic Workflows: o recurso que chegou com o Opus 4.8 e deixa o Claude planejar o trabalho e disparar centenas de subagentes em paralelo numa única sessão. O que é, como difere de skills/subagents/teams, quando usar — e quando é só queimar dinheiro.</p>
+
+      <!-- HERO FUTURISTA: orquestrador → agentes paralelos → resultado -->
+      <div class="rounded-2xl border border-amber-500/30 bg-dark-900/40 p-3 sm:p-4 mb-8 overflow-hidden">
+        <svg viewBox="0 0 1000 240" class="w-full h-auto" role="img" aria-label="Diagrama: um orquestrador dispara vários agentes em paralelo que convergem em um único resultado">
+          <defs>
+            <linearGradient id="t4-amber" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#f59e0b"/>
+            </linearGradient>
+            <filter id="t4-glow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <pattern id="t4-grid" width="34" height="34" patternUnits="userSpaceOnUse">
+              <circle cx="1.4" cy="1.4" r="1.4" fill="#f59e0b" opacity="0.13"/>
+            </pattern>
+            <marker id="t4-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#fbbf24"/></marker>
+            <marker id="t4-ahc" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"/></marker>
+          </defs>
+
+          <rect x="0" y="0" width="1000" height="240" fill="url(#t4-grid)"/>
+
+          <!-- conexões: orquestrador -> agentes -->
+          <g fill="none" stroke="#fbbf24" stroke-width="2" opacity="0.65">
+            <path d="M196,120 C300,120 320,38 452,38" marker-end="url(#t4-ah)"/>
+            <path d="M196,120 C300,120 320,79 452,79" marker-end="url(#t4-ah)"/>
+            <path d="M196,120 L452,120" marker-end="url(#t4-ah)"/>
+            <path d="M196,120 C300,120 320,161 452,161" marker-end="url(#t4-ah)"/>
+            <path d="M196,120 C300,120 320,202 452,202" marker-end="url(#t4-ah)"/>
+          </g>
+          <!-- conexões: agentes -> resultado -->
+          <g fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.55">
+            <path d="M588,38  C700,38 720,120 800,120" marker-end="url(#t4-ahc)"/>
+            <path d="M588,79  C700,79 720,120 800,120" marker-end="url(#t4-ahc)"/>
+            <path d="M588,120 L800,120" marker-end="url(#t4-ahc)"/>
+            <path d="M588,161 C700,161 720,120 800,120" marker-end="url(#t4-ahc)"/>
+            <path d="M588,202 C700,202 720,120 800,120" marker-end="url(#t4-ahc)"/>
+          </g>
+
+          <!-- orquestrador -->
+          <g filter="url(#t4-glow)">
+            <rect x="40" y="88" width="156" height="64" rx="14" fill="#1f1604" stroke="url(#t4-amber)" stroke-width="2.5"/>
+          </g>
+          <text x="118" y="114" text-anchor="middle" fill="#fbbf24" font-family="Inter,sans-serif" font-weight="700" font-size="20">Opus 4.8</text>
+          <text x="118" y="134" text-anchor="middle" fill="#fcd9a0" font-family="Inter,sans-serif" font-size="12.5">orquestrador</text>
+
+          <!-- agentes paralelos -->
+          <g font-family="Inter,sans-serif" font-size="13" font-weight="600">
+            <g class="wf-agent"><rect x="452" y="22" width="136" height="32" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="520" y="43" text-anchor="middle" fill="#bfe6ff">agente · Haiku</text></g>
+            <g class="wf-agent"><rect x="452" y="63" width="136" height="32" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="520" y="84" text-anchor="middle" fill="#bfe6ff">agente · Haiku</text></g>
+            <g class="wf-agent"><rect x="452" y="104" width="136" height="32" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="520" y="125" text-anchor="middle" fill="#bfe6ff">agente · Haiku</text></g>
+            <g class="wf-agent"><rect x="452" y="145" width="136" height="32" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="520" y="166" text-anchor="middle" fill="#bfe6ff">agente · Haiku</text></g>
+            <g class="wf-agent"><rect x="452" y="186" width="136" height="32" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/><text x="520" y="207" text-anchor="middle" fill="#bfe6ff">agente · …</text></g>
+          </g>
+
+          <!-- resultado -->
+          <g filter="url(#t4-glow)">
+            <rect x="800" y="88" width="156" height="64" rx="14" fill="#1f1604" stroke="url(#t4-amber)" stroke-width="2.5"/>
+          </g>
+          <text x="878" y="114" text-anchor="middle" fill="#fbbf24" font-family="Inter,sans-serif" font-weight="700" font-size="18">1 resultado</text>
+          <text x="878" y="134" text-anchor="middle" fill="#fcd9a0" font-family="Inter,sans-serif" font-size="12.5">tudo mesclado</text>
+
+          <text x="520" y="232" text-anchor="middle" fill="#9aa4b2" font-family="Inter,sans-serif" font-size="12.5">× até 1.000 agentes rodando em paralelo</text>
+        </svg>
+      </div>
+
+      <div class="grid grid-cols-4 gap-4 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">7</div><div class="text-xs text-neutral-400">Módulos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">36</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">~3h</div><div class="text-xs text-neutral-400">Duração</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Inter.</div><div class="text-xs text-neutral-400">Nível</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- MAPA DA TRILHA -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-6">Mapa da trilha</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <a href="#modulo-4-1" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.1</span><span class="text-xs text-neutral-500">~30 min</span></div>
+          <h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">🛰️ O que são</h3>
+          <p class="text-xs text-neutral-400">Plano vira código</p>
+        </a>
+        <a href="#modulo-4-2" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.2</span><span class="text-xs text-neutral-500">~30 min</span></div>
+          <h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">🧩 A família</h3>
+          <p class="text-xs text-neutral-400">Skill × subagent × team × workflow</p>
+        </a>
+        <a href="#modulo-4-3" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.3</span><span class="text-xs text-neutral-500">~25 min</span></div>
+          <h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">🪜 A escada</h3>
+          <p class="text-xs text-neutral-400">Suba só quando precisar</p>
+        </a>
+        <a href="#modulo-4-4" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.4</span><span class="text-xs text-neutral-500">~30 min</span></div>
+          <h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">🔀 Largura × profundidade</h3>
+          <p class="text-xs text-neutral-400">/goal × workflow × deep-research</p>
+        </a>
+        <a href="#modulo-4-5" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.5</span><span class="text-xs text-neutral-500">~35 min</span></div>
+          <h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">💸 Custo & operação</h3>
+          <p class="text-xs text-neutral-400">O script, /workflows, UltraCode</p>
+        </a>
+        <a href="#modulo-4-6" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.6</span><span class="text-xs text-neutral-500">~30 min</span></div>
+          <h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">✏️ Exercícios</h3>
+          <p class="text-xs text-neutral-400">Fixe com gabarito</p>
+        </a>
+        <a href="#modulo-4-7" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.7</span><span class="text-xs text-neutral-500">~20 min</span></div>
+          <h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">📋 Prompts prontos</h3>
+          <p class="text-xs text-neutral-400">Copie e use</p>
+        </a>
+      </div>
+    </section>
+
+    <h2 class="text-2xl font-bold mb-6">Conteúdo detalhado</h2>
+
+    <!-- MÓDULO 4.1 -->
+    <div id="modulo-4-1" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+      <div class="p-6 border-b border-dark-600">
+        <div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold">4.1</span><span class="text-xs text-neutral-500">~30 min</span></div>
+        <h3 class="text-2xl font-bold mb-2">🛰️ O que são Dynamic Workflows</h3>
+        <p class="text-neutral-400 text-sm">O recurso que chegou com o Opus 4.8: o Claude planeja e o plano vira código que roda sozinho.</p>
+      </div>
+      <div class="divide-y divide-dark-600">
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+            <span class="text-lg">🚀</span>
+            <div><span class="font-medium">Chegou com o Opus 4.8</span><span class="text-neutral-500 text-sm ml-2">- research preview no Claude Code</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Dynamic Workflows é um recurso do Claude Code lançado junto do Opus 4.8 (research preview). O modelo planeja o trabalho e dispara muitos subagentes em paralelo numa única sessão.</p></div>
+            <div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É a forma mais "larga" de paralelismo no Claude Code — e a mais cara. Saber o que é evita confundir com skills, subagents e agent teams.</p></div>
+            <div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Lançado com o 4.8; com o 4.8 os agentes rodam por mais tempo; saídas são verificadas.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+            <span class="text-lg">⚡</span>
+            <div><span class="font-medium">Centenas de agentes em paralelo</span><span class="text-neutral-500 text-sm ml-2">- e mesclados no fim</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Um workflow pode subir até ~1.000 agentes, que trabalham sozinhos (sem se falar) e têm os resultados mesclados ao final, devolvidos para a sessão principal.</p></div>
+            <div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Como rodam em paralelo, terminam rápido — mas cada agente é uma chamada completa do Claude, então o custo escala junto.</p></div>
+            <div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Largura, não conversa; resultados mesclados; latência baixa, custo alto.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+            <span class="text-lg">🧠</span>
+            <div><span class="font-medium">Quem segura o plano?</span><span class="text-neutral-500 text-sm ml-2">- Claude normal × workflow</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">No Claude normal, o plano inteiro fica "na cabeça" do modelo, junto com o contexto. No workflow, o plano vive fora — em código — e o Claude só vê o resultado.</p></div>
+            <div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Tirar o plano do contexto é o que mantém a sessão principal limpa em jobs gigantes.</p></div>
+            <div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Contexto enche em jobs grandes; o workflow descarrega o plano para fora da sessão.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+            <span class="text-lg">📜</span>
+            <div><span class="font-medium">O plano vira código</span><span class="text-neutral-500 text-sm ml-2">- um arquivo JavaScript</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O Claude escreve um arquivo JavaScript que descreve o pipeline; um runtime executa esse script em segundo plano e orquestra os agentes.</p></div>
+            <div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Porque o plano é código, ele pode ser inspecionado, salvo e re-executado depois.</p></div>
+            <div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Script JS; roda em background; determinístico (loops, condicionais, fan-out).</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+            <span class="text-lg">🎨</span>
+            <div><span class="font-medium">"n8n que desenha o próprio canvas"</span><span class="text-neutral-500 text-sm ml-2">- a melhor analogia</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Você descreve o objetivo final; o Claude desenha o pipeline e o roda. É como um n8n/Make que constrói o próprio fluxograma a partir do que você pediu.</p></div>
+            <div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">A analogia ajuda quem vem de automação no-code a entender o conceito em um segundo.</p></div>
+            <div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Você dá o objetivo; ele cria a topologia; "self-building canvas".</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+            <span class="text-lg">✅</span>
+            <div><span class="font-medium">Pede confirmação antes de rodar</span><span class="text-neutral-500 text-sm ml-2">- sem disparo acidental</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O Claude sempre confirma antes de disparar um workflow — você aprova, ou pode ver o script bruto primeiro. Digitar "workflow" por acaso não dispara nada.</p></div>
+            <div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Tira o medo do recurso: ele não "foge" sozinho a não ser que você ligue o UltraCode (módulo 4.5).</p></div>
+            <div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Confirmação explícita; ver o script antes; leia o escopo, depois aprove.</p></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+        <button onclick="openModal('modal-4-1')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+        <a href="modulo-4-1.html" class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors">Ver Completo</a>
+      </div>
+    </div>
+
+    <!-- MÓDULO 4.2 -->
+    <div id="modulo-4-2" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+      <div class="p-6 border-b border-dark-600">
+        <div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold">4.2</span><span class="text-xs text-neutral-500">~30 min</span></div>
+        <h3 class="text-2xl font-bold mb-2">🧩 A família de orquestração</h3>
+        <p class="text-neutral-400 text-sm">Skill, Subagent, Agent Team e Workflow: quatro nomes que se confundem — e como diferenciá-los.</p>
+      </div>
+      <div class="divide-y divide-dark-600">
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span><span class="text-lg">📒</span><div><span class="font-medium">Skill</span><span class="text-neutral-500 text-sm ml-2">- uma receita salva</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Uma receita reutilizável que o Claude segue. Zero agentes extras — o mesmo agente lê e executa.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É o "como" de uma tarefa, e pode rodar dentro de qualquer um dos outros.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Receita; sem agente extra; aninhável.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span><span class="text-lg">🧍</span><div><span class="font-medium">Subagent</span><span class="text-neutral-500 text-sm ml-2">- um ajudante para uma tarefa lateral</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Um agente com contexto próprio, enviado para uma tarefa lateral. Reporta de volta uma vez e some.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Mantém a sessão principal limpa; não fala com outros subagents, só com a sessão.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">1 agente; contexto isolado; reporta e encerra.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span><span class="text-lg">👥</span><div><span class="font-medium">Agent Team</span><span class="text-neutral-500 text-sm ml-2">- uma equipe que conversa</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Uma pequena equipe com papéis nomeados que trocam mensagens entre si e compartilham uma lista de tarefas.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É a opção quando os agentes precisam debater/colaborar (war room, conselho).</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Poucos agentes; conversam; papéis e ferramentas próprias.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span><span class="text-lg">🔀</span><div><span class="font-medium">Workflow</span><span class="text-neutral-500 text-sm ml-2">- código que roda muitos agentes</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O Claude escreve código que sobe muitos agentes (até ~1.000). Eles trabalham sozinhos; os resultados se mesclam no fim.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É força bruta paralela — diferente da conversa de uma team.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Até 1.000; não conversam; merge final.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span><span class="text-lg">💬</span><div><span class="font-medium">Eles conversam?</span><span class="text-neutral-500 text-sm ml-2">- group chat × pistas solo</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Agent Team = um grupo de chat: os membros se passam o bastão e reagem entre si. Workflow = pistas solo: os agentes nunca se veem.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É o critério que mais decide qual usar: precisa colaborar → team; precisa paralelismo bruto → workflow.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Team conversa; workflow isola; o resto é custo.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span><span class="text-lg">🪆</span><div><span class="font-medium">Skill dentro de workflow</span><span class="text-neutral-500 text-sm ml-2">- sim, aninha</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Os agentes de um workflow podem ler e usar suas skills, MCPs e chaves de API. A skill é o "como"; o workflow é o "quantos".</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Você reaproveita o que já construiu (skills/MCP) dentro de um job massivo.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Skill = how; workflow = how-many; MCP ao lado de qualquer um.</p></div></div></div></div>
+      </div>
+      <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+        <button onclick="openModal('modal-4-2')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+        <a href="modulo-4-2.html" class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors">Ver Completo</a>
+      </div>
+    </div>
+
+    <!-- MÓDULO 4.3 -->
+    <div id="modulo-4-3" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+      <div class="p-6 border-b border-dark-600">
+        <div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold">4.3</span><span class="text-xs text-neutral-500">~25 min</span></div>
+        <h3 class="text-2xl font-bold mb-2">🪜 A escada da orquestração</h3>
+        <p class="text-neutral-400 text-sm">Suba um degrau só quando o de baixo ficar pequeno. Quando vale, quando é overkill.</p>
+      </div>
+      <div class="divide-y divide-dark-600">
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span><span class="text-lg">🪜</span><div><span class="font-medium">Os degraus</span><span class="text-neutral-500 text-sm ml-2">- ask → skill → subagent → team → workflow</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Da base ao topo: só perguntar → skill → subagent → agent team → workflow. Cada degrau adiciona complexidade e poder.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">A escada é um mapa de decisão: você sobe conforme o problema cresce.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">5 degraus; mais alto = mais poder + mais risco/custo.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span><span class="text-lg">💲</span><div><span class="font-medium">O custo sobe junto</span><span class="text-neutral-500 text-sm ml-2">- $ até $$$$$</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Cada degrau custa mais: "só perguntar" é barato; workflow é o mais caro de todos.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Subir sem necessidade é pagar a mais pela mesma resposta.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Poder ∝ custo; topo da escada = topo da conta.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span><span class="text-lg">🛑</span><div><span class="font-medium">O default é "não é workflow"</span><span class="text-neutral-500 text-sm ml-2">- comece embaixo</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">A resposta padrão deve ser o degrau mais baixo que resolve. Só suba quando o de baixo "ficar sem espaço".</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Evita a tentação de usar workflow para tudo só porque é novo.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Menor degrau suficiente; subir é exceção.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span><span class="text-lg">🟢</span><div><span class="font-medium">Sinal verde</span><span class="text-neutral-500 text-sm ml-2">- quando vale o workflow</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Revisar todos os arquivos de um codebase, uma migração de 400 arquivos, pesquisa profunda em muitas fontes, stress-test de uma decisão grande.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">São jobs que quebram em muitas peças independentes — o caso ideal.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Muitas peças paralelas; risco alto; vale a compute.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span><span class="text-lg">🔴</span><div><span class="font-medium">Overkill</span><span class="text-neutral-500 text-sm ml-2">- quando NÃO usar</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Uma única edição, uma pergunta rápida, conversa normal de ida-e-volta, ou qualquer coisa que você precise pilotar passo a passo.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Nesses casos, o workflow só custa mais pela mesma resposta.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Tarefa única; precisa de direção; um agente já segura.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span><span class="text-lg">❓</span><div><span class="font-medium">A pergunta-chave</span><span class="text-neutral-500 text-sm ml-2">- quebra em peças paralelas?</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">"Isto se quebra em muitas peças que rodam ao mesmo tempo?" Se sim → tente um workflow. Se um agente segura tudo, não.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É o teste de uma frase que resolve a maioria das decisões.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Paralelizável → workflow; sequencial/único → não.</p></div></div></div></div>
+      </div>
+      <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+        <button onclick="openModal('modal-4-3')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+        <a href="modulo-4-3.html" class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors">Ver Completo</a>
+      </div>
+    </div>
+
+    <!-- MÓDULO 4.4 -->
+    <div id="modulo-4-4" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+      <div class="p-6 border-b border-dark-600">
+        <div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold">4.4</span><span class="text-xs text-neutral-500">~30 min</span></div>
+        <h3 class="text-2xl font-bold mb-2">🔀 Largura × profundidade</h3>
+        <p class="text-neutral-400 text-sm">/goal e Workflow são opostos. E o /deep-research é um workflow embutido.</p>
+      </div>
+      <div class="divide-y divide-dark-600">
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span><span class="text-lg">🪂</span><div><span class="font-medium">/goal = profundidade</span><span class="text-neutral-500 text-sm ml-2">- 1 agente, vários turnos</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">/goal é um loop: um agente segue tentando, turno após turno, até "done = true". Pode rodar por horas.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É a ferramenta para um objetivo com critério de parada claro.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Loop; critério de parada; profundidade no tempo.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span><span class="text-lg">↔️</span><div><span class="font-medium">Workflow = largura</span><span class="text-neutral-500 text-sm ml-2">- N agentes ao mesmo tempo</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Workflow é largura: muitos agentes executam um plano fixo em paralelo e os resultados se mesclam num só.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Não há loop "até ser verdade" — é executar o plano e devolver.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Plano fixo; paralelo; 1 resultado.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span><span class="text-lg">⚖️</span><div><span class="font-medium">São opostos</span><span class="text-neutral-500 text-sm ml-2">- como escolher</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">"Seguir até ser verdade?" → /goal. "Grande demais para um passo?" → workflow.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Confundir os dois leva a loops infinitos ou paralelismo sem critério.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Profundidade × largura; critério × volume.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span><span class="text-lg">🔬</span><div><span class="font-medium">/deep-research é um workflow</span><span class="text-neutral-500 text-sm ml-2">- já vem pronto</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">/deep-research dispara um workflow embutido: vários agentes pesquisam em paralelo, votam em cada alegação e devolvem um relatório com fontes.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É o jeito mais fácil de experimentar um workflow sem escrever nada.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Busca paralela; votação por alegação; relatório citado.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span><span class="text-lg">🗳️</span><div><span class="font-medium">Verificação adversarial</span><span class="text-neutral-500 text-sm ml-2">- agentes votam</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Em vez de confiar numa única saída, vários agentes checam a mesma alegação e votam — o que sobrevive entra no relatório.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É o padrão que aumenta a confiança das descobertas em jobs grandes.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Votação; checagem independente; menos alucinação.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span><span class="text-lg">🧪</span><div><span class="font-medium">Combinar os dois</span><span class="text-neutral-500 text-sm ml-2">- workflow dentro de /goal</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Dá para aninhar um workflow dentro de um /goal — largura dentro de profundidade. Muito poderoso, e muito fácil de queimar dinheiro.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Saber que existe — e o cuidado que exige — evita autonomia descontrolada.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Aninhamento; autonomia alta; cautela com custo.</p></div></div></div></div>
+      </div>
+      <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+        <button onclick="openModal('modal-4-4')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+        <a href="modulo-4-4.html" class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors">Ver Completo</a>
+      </div>
+    </div>
+
+    <!-- MÓDULO 4.5 -->
+    <div id="modulo-4-5" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+      <div class="p-6 border-b border-dark-600">
+        <div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold">4.5</span><span class="text-xs text-neutral-500">~35 min</span></div>
+        <h3 class="text-2xl font-bold mb-2">💸 Custo, operação e UltraCode</h3>
+        <p class="text-neutral-400 text-sm">A conta, o script JS, o monitor /workflows, salvar/reutilizar e o modo UltraCode.</p>
+      </div>
+      <div class="divide-y divide-dark-600">
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span><span class="text-lg">🧾</span><div><span class="font-medium">A conta = tamanho do job</span><span class="text-neutral-500 text-sm ml-2">- cada agente é uma call</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O custo depende do tamanho do job que você aponta. Cada agente é uma chamada completa do Claude, com contexto próprio, e muitos rodam de uma vez.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Um único prompt mal-escopado pode consumir metade de um plano mensal em ~30 min.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Custo ∝ escopo; input ≫ output normalmente; cuidado com varreduras amplas.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span><span class="text-lg">🎯</span><div><span class="font-medium">3 regras de ouro</span><span class="text-neutral-500 text-sm ml-2">- escopo, deliverable, Haiku</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">1) Limite o escopo. 2) Nomeie o entregável. 3) Ponha o trabalho repetitivo no Haiku. Vago → conta alta; escopado → centavos.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">As três regras transformam um workflow caro num barato sem perder qualidade.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">"Cheque src/routes por auth faltando, 1 Haiku por arquivo, devolva tabela."</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span><span class="text-lg">🖥️</span><div><span class="font-medium">O monitor /workflows</span><span class="text-neutral-500 text-sm ml-2">- veja tudo rodando</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Enquanto roda, /workflows mostra todos os agentes ativos: modelo (ex.: Haiku), tokens usados, ferramentas e tempo. Dá para parar.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É o painel de controle — você vê o custo crescer em tempo real.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Lista de agentes; tokens/tempo; botão de parada.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span><span class="text-lg">💾</span><div><span class="font-medium">Salvar e reutilizar</span><span class="text-neutral-500 text-sm ml-2">- vira /seu-comando</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Um run é descartável por padrão. Em /workflows, escolha o run e salve (tecla s) — ele vai para .claude/workflows/ e passa a rodar como /seu-nome.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Você transforma um job repetido (ex.: auditoria de skills) num comando reutilizável.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Salvar; .claude/workflows/; re-rodar; /deep-research é um embutido.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span><span class="text-lg">🚀</span><div><span class="font-medium">UltraCode</span><span class="text-neutral-500 text-sm ml-2">- X-High + workflows no automático</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">No /effort, UltraCode = raciocínio X-High + workflows ligados por padrão. Ele orquestra sozinho, sem precisar da palavra "workflow".</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É o modo mais caro: para de perguntar e orquestra. Ligue quando qualidade vale mais que a conta.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">X-High + workflows; menos confirmações; muito mais tokens.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span><span class="text-lg">📄</span><div><span class="font-medium">Cheat sheet</span><span class="text-neutral-500 text-sm ml-2">- tudo numa frase</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Coisa rápida → pergunte. Coisa repetida → Skill. Tarefa lateral → Subagent. Crew que conversa → Agent Team. Até ser verdade → /goal. Job paralelo gigante → Workflow.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É o resumo de decisão que você leva para o dia a dia.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">MCP/CLIs/APIs conectam-se a qualquer um dos degraus.</p></div></div></div></div>
+      </div>
+      <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+        <button onclick="openModal('modal-4-5')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+        <a href="modulo-4-5.html" class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors">Ver Completo</a>
+      </div>
+    </div>
+
+    <!-- MÓDULO 4.6 -->
+    <div id="modulo-4-6" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+      <div class="p-6 border-b border-dark-600">
+        <div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold">4.6</span><span class="text-xs text-neutral-500">~30 min</span></div>
+        <h3 class="text-2xl font-bold mb-2">✏️ Exercícios</h3>
+        <p class="text-neutral-400 text-sm">Fixe os conceitos da trilha com perguntas e cenários — todos com gabarito.</p>
+      </div>
+      <div class="divide-y divide-dark-600">
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span><span class="text-lg">🧠</span><div><span class="font-medium">Skill, subagent, team ou workflow?</span><span class="text-neutral-500 text-sm ml-2">- classifique cenários</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Cenários reais para você decidir o degrau certo da escada.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Treina o reflexo de não usar workflow para tudo.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Gabarito comentado na página completa.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span><span class="text-lg">💸</span><div><span class="font-medium">Reduza a conta</span><span class="text-neutral-500 text-sm ml-2">- reescreva prompts vagos</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Pegue prompts amplos e aplique as 3 regras (escopo, deliverable, Haiku).</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É a habilidade que mais economiza dinheiro na prática.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Antes/depois com estimativa de custo.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span><span class="text-lg">🔀</span><div><span class="font-medium">/goal ou workflow?</span><span class="text-neutral-500 text-sm ml-2">- largura × profundidade</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Decida, em cada caso, se cabe loop até "done=true" ou paralelismo de uma passada.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Consolida o conceito mais escorregadio da trilha.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Critério de parada × volume paralelo.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span><span class="text-lg">🛠️</span><div><span class="font-medium">Projete um workflow</span><span class="text-neutral-500 text-sm ml-2">- da meta ao plano</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Escreva o objetivo e esboce as fases (fan-out → merge) para um job real seu.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Tira o conceito do abstrato e leva ao seu contexto.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Fases; verificação; deliverable nomeado.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span><span class="text-lg">🔬</span><div><span class="font-medium">Use o /deep-research</span><span class="text-neutral-500 text-sm ml-2">- experimente um workflow pronto</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Rode um /deep-research com escopo apertado e observe o fan-out e a votação.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Vê na prática como agentes paralelos viram um relatório citado.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Escopo apertado; observar /workflows.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span><span class="text-lg">🚦</span><div><span class="font-medium">Vale ou é overkill?</span><span class="text-neutral-500 text-sm ml-2">- a pergunta-chave</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Aplique "isto quebra em peças paralelas?" a uma lista de tarefas suas.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Vira hábito de decisão rápido e barato.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Sim → workflow; não → degrau mais baixo.</p></div></div></div></div>
+      </div>
+      <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+        <button onclick="openModal('modal-4-6')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+        <a href="modulo-4-6.html" class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors">Ver Completo</a>
+      </div>
+    </div>
+
+    <!-- MÓDULO 4.7 -->
+    <div id="modulo-4-7" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+      <div class="p-6 border-b border-dark-600">
+        <div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold">4.7</span><span class="text-xs text-neutral-500">~20 min</span></div>
+        <h3 class="text-2xl font-bold mb-2">📋 Prompts prontos</h3>
+        <p class="text-neutral-400 text-sm">Modelos copia-e-cola para disparar workflows com escopo e custo sob controle.</p>
+      </div>
+      <div class="divide-y divide-dark-600">
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span><span class="text-lg">🔎</span><div><span class="font-medium">Auditoria de codebase</span><span class="text-neutral-500 text-sm ml-2">- 1 Haiku por arquivo</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Prompt que varre uma pasta específica com um agente Haiku por arquivo e devolve uma tabela.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Escopo + deliverable + Haiku no mesmo prompt.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Texto pronto na página completa.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span><span class="text-lg">🧱</span><div><span class="font-medium">Migração em N arquivos</span><span class="text-neutral-500 text-sm ml-2">- fan-out por arquivo</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Prompt para transformar muitos arquivos com isolamento por worktree e verificação.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">O caso clássico de "400 arquivos".</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Descobrir → transformar → verificar.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span><span class="text-lg">🔬</span><div><span class="font-medium">Deep research escopado</span><span class="text-neutral-500 text-sm ml-2">- pergunta + critérios</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Modelo de pergunta de pesquisa bem-delimitada para o /deep-research.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Pergunta apertada = relatório melhor e mais barato.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Escopo, fontes, formato de saída.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span><span class="text-lg">🗂️</span><div><span class="font-medium">Auditoria de skills</span><span class="text-neutral-500 text-sm ml-2">- score + ranking</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O prompt do vídeo: ler cada skill, 1 Haiku por skill, pontuar e ranquear pior→melhor num scorecard.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Exemplo real de fan-out + síntese.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Score por agente; síntese final em Opus.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span><span class="text-lg">💾</span><div><span class="font-medium">Salvar como comando</span><span class="text-neutral-500 text-sm ml-2">- re-rodar depois</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Instrução para salvar o workflow em .claude/workflows/ e re-executar como /nome.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Transforma um run pontual num comando do projeto.</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Salvar no projeto, não no global.</p></div></div></div></div>
+        <div class="topic-item"><button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left"><span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span><span class="text-lg">🛡️</span><div><span class="font-medium">Guard-rails de custo</span><span class="text-neutral-500 text-sm ml-2">- limites no prompt</span></div></button><div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9"><div><span class="text-amber-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Frases prontas para limitar nº de agentes, modelo e escopo antes de aprovar o run.</p></div><div><span class="text-amber-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Evita o "metade do plano em 30 min".</p></div><div><span class="text-amber-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Teto de agentes; Haiku; ver script antes.</p></div></div></div></div>
+      </div>
+      <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+        <button onclick="openModal('modal-4-7')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+        <a href="modulo-4-7.html" class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors">Ver Completo</a>
+      </div>
+    </div>
+
+    <!-- NAVEGAÇÃO ENTRE TRILHAS -->
+    <div class="flex flex-col sm:flex-row gap-4 mt-10">
+      <a href="../trilha3/index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Trilha 3 · Na prática</a>
+      <a href="../index.html" class="flex-1 text-center px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors">Voltar ao curso</a>
+    </div>
+
+  </main>
+
+  <!-- MODAIS (iframe) -->
+  <div id="modal-4-1" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()"><div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600"><div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.1</span><span class="font-semibold">O que são Dynamic Workflows</span></div><button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button></div><iframe src="modulo-4-1.html" class="flex-1 w-full rounded-b-xl"></iframe></div></div>
+  <div id="modal-4-2" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()"><div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600"><div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.2</span><span class="font-semibold">A família de orquestração</span></div><button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button></div><iframe src="modulo-4-2.html" class="flex-1 w-full rounded-b-xl"></iframe></div></div>
+  <div id="modal-4-3" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()"><div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600"><div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.3</span><span class="font-semibold">A escada da orquestração</span></div><button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button></div><iframe src="modulo-4-3.html" class="flex-1 w-full rounded-b-xl"></iframe></div></div>
+  <div id="modal-4-4" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()"><div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600"><div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.4</span><span class="font-semibold">Largura × profundidade</span></div><button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button></div><iframe src="modulo-4-4.html" class="flex-1 w-full rounded-b-xl"></iframe></div></div>
+  <div id="modal-4-5" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()"><div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600"><div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.5</span><span class="font-semibold">Custo, operação e UltraCode</span></div><button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button></div><iframe src="modulo-4-5.html" class="flex-1 w-full rounded-b-xl"></iframe></div></div>
+  <div id="modal-4-6" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()"><div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600"><div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.6</span><span class="font-semibold">Exercícios</span></div><button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button></div><iframe src="modulo-4-6.html" class="flex-1 w-full rounded-b-xl"></iframe></div></div>
+  <div id="modal-4-7" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()"><div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600"><div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.7</span><span class="font-semibold">Prompts prontos</span></div><button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button></div><iframe src="modulo-4-7.html" class="flex-1 w-full rounded-b-xl"></iframe></div></div>
+
+  <footer class="border-t border-dark-600 py-8 mt-8"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm"><p>Dominando o Claude Opus 4.8 · Trilha 4 · INEMA.CLUB · 2026</p></div></footer>
+
+  <script>
+    function toggleTopic(button) {
+      const topicItem = button.closest('.topic-item');
+      const explanation = topicItem.querySelector('.topic-explanation');
+      const moduleCard = button.closest('.bg-dark-800');
+      moduleCard.querySelectorAll('.topic-explanation.active').forEach(exp => { if (exp !== explanation) exp.classList.remove('active'); });
+      explanation.classList.toggle('active');
+    }
+    function openModal(id){ const m=document.getElementById(id); if(m){ m.classList.remove('hidden'); document.body.style.overflow='hidden'; } }
+    function closeModal(){ document.querySelectorAll('.modal').forEach(m=>m.classList.add('hidden')); document.body.style.overflow='auto'; }
+    document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+    const themeToggle = document.getElementById('theme-toggle');
+    const d = document.getElementById('theme-toggle-dark-icon'); const l = document.getElementById('theme-toggle-light-icon'); const html = document.documentElement;
+    if (localStorage.getItem('theme')==='light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) { d.classList.remove('hidden'); html.classList.remove('dark'); } else { l.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => { d.classList.toggle('hidden'); l.classList.toggle('hidden'); html.classList.toggle('dark'); localStorage.setItem('theme', html.classList.contains('dark')?'dark':'light'); });
+  </script>
+</body>
+</html>
