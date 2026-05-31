@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 4.4 · Largura × profundidade | Opus 4.8</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-amber-400 { color: #92400e; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(217,119,6,0.14); }
+    html:not(.dark) .bg-amber-500\/10 { background-color: rgba(217,119,6,0.09); }
+    html:not(.dark) .bg-amber-900\/20 { background-color: rgba(217,119,6,0.09); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(217,119,6,0.28); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-900\/20 { background-color: rgba(220,38,38,0.07); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) { .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; } .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s} .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s} }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between items-center h-14">
+      <div class="flex items-center space-x-4">
+        <a href="../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300"><span class="text-2xl">🤖</span><span class="font-bold text-lg hidden sm:inline">Opus 4.8</span></a>
+        <span class="text-neutral-600">|</span>
+        <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+      </div>
+      <div class="flex items-center space-x-1 sm:space-x-2">
+        <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Capacidades</span></a>
+        <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">O que mudou</span></a>
+        <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Na prática</span></a>
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-amber-400 bg-amber-500/10"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Fluxos Dinâmicos</span></a>
+        <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        </button>
+      </div>
+    </div></div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../index.html" class="hover:text-amber-400">Início</a><span>/</span>
+      <a href="index.html" class="hover:text-amber-400">Trilha 4</a><span>/</span><span class="text-amber-400">Módulo 4.4</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-amber-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full mb-4">MÓDULO 4.4</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🔀 Largura × profundidade</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl"><strong class="text-amber-400">/goal</strong> e <strong class="text-amber-400">Workflow</strong> são opostos: um é profundidade no tempo, o outro é largura em paralelo. E o <strong class="text-amber-400">/deep-research</strong> já é um workflow pronto pra você experimentar.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">30</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Inter.</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Teoria</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1+2 — os dois lados (SVG) -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">1</span><h2 class="text-2xl font-bold">⚖️ Dois eixos opostos</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed"><strong class="text-amber-400">/goal</strong> é um <strong class="text-amber-400">loop</strong>: um agente segue tentando, turno após turno, até "done = true". <strong class="text-amber-400">Workflow</strong> é <strong class="text-amber-400">largura</strong>: muitos agentes executam um plano fixo de uma vez e os resultados se mesclam num só.</p>
+      <div class="rounded-2xl border border-dark-600 bg-dark-900/40 p-4 mb-6 overflow-hidden">
+        <svg viewBox="0 0 1000 360" class="w-full h-auto" role="img" aria-label="/goal é profundidade: um agente em vários turnos até done=true. Workflow é largura: muitos agentes em paralelo para um resultado.">
+          <defs>
+            <marker id="m4-ab" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"/></marker>
+            <marker id="m4-ag" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#34d399"/></marker>
+            <filter id="m4-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <line x1="500" y1="40" x2="500" y2="340" stroke="#374151" stroke-width="1.5" stroke-dasharray="6 7"/>
+          <text x="250" y="34" text-anchor="middle" fill="#38bdf8" font-family="Inter,sans-serif" font-weight="700" font-size="18">/goal — PROFUNDIDADE</text>
+          <text x="750" y="34" text-anchor="middle" fill="#34d399" font-family="Inter,sans-serif" font-weight="700" font-size="18">Workflow — LARGURA</text>
+          <!-- goal: vertical chain -->
+          <g font-family="Inter,sans-serif">
+            <rect x="170" y="58" width="160" height="40" rx="10" fill="#0e1b26" stroke="#38bdf8" stroke-width="2.4"/><text x="250" y="83" text-anchor="middle" fill="#9ad6ff" font-weight="700" font-size="13">1 agente</text>
+            <rect x="180" y="128" width="140" height="34" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="1.8"/><text x="250" y="150" text-anchor="middle" fill="#bfe6ff" font-size="12.5">Turno 1</text>
+            <rect x="180" y="188" width="140" height="34" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="1.8"/><text x="250" y="210" text-anchor="middle" fill="#bfe6ff" font-size="12.5">Turno 2</text>
+            <rect x="180" y="248" width="140" height="34" rx="9" fill="#0e1b26" stroke="#38bdf8" stroke-width="1.8"/><text x="250" y="270" text-anchor="middle" fill="#bfe6ff" font-size="12.5">Turno 3</text>
+            <g filter="url(#m4-glow)"><rect x="165" y="304" width="170" height="40" rx="10" fill="#0e2018" stroke="#34d399" stroke-width="2.6"/></g><text x="250" y="329" text-anchor="middle" fill="#6ee7b7" font-weight="700" font-size="13">Done = TRUE</text>
+            <g fill="none" stroke="#38bdf8" stroke-width="2.2"><path d="M250,98 L250,126" marker-end="url(#m4-ab)"/><path d="M250,162 L250,186" marker-end="url(#m4-ab)"/><path d="M250,222 L250,246" marker-end="url(#m4-ab)"/></g>
+            <path d="M250,282 L250,302" fill="none" stroke="#34d399" stroke-width="2.2" marker-end="url(#m4-ag)"/>
+          </g>
+          <!-- workflow: fan width -->
+          <g font-family="Inter,sans-serif">
+            <g filter="url(#m4-glow)"><rect x="670" y="58" width="160" height="40" rx="10" fill="#0e2018" stroke="#34d399" stroke-width="2.6"/></g><text x="750" y="83" text-anchor="middle" fill="#6ee7b7" font-weight="700" font-size="13">Plano</text>
+            <g font-size="12" fill="#bfe6ff" font-weight="600">
+              <g class="wf-a"><rect x="600" y="160" width="74" height="32" rx="8" fill="#0e1b26" stroke="#34d399" stroke-width="1.8"/><text x="637" y="180" text-anchor="middle">agente</text></g>
+              <g class="wf-a"><rect x="684" y="160" width="74" height="32" rx="8" fill="#0e1b26" stroke="#34d399" stroke-width="1.8"/><text x="721" y="180" text-anchor="middle">agente</text></g>
+              <g class="wf-a"><rect x="768" y="160" width="74" height="32" rx="8" fill="#0e1b26" stroke="#34d399" stroke-width="1.8"/><text x="805" y="180" text-anchor="middle">agente</text></g>
+              <g class="wf-a"><rect x="852" y="160" width="60" height="32" rx="8" fill="#0e1b26" stroke="#34d399" stroke-width="1.8"/><text x="882" y="180" text-anchor="middle">…</text></g>
+            </g>
+            <g fill="none" stroke="#34d399" stroke-width="2" opacity="0.7">
+              <path d="M740,98 L640,158" marker-end="url(#m4-ag)"/><path d="M748,98 L720,158" marker-end="url(#m4-ag)"/><path d="M758,98 L805,158" marker-end="url(#m4-ag)"/><path d="M766,98 L880,158" marker-end="url(#m4-ag)"/>
+            </g>
+            <g filter="url(#m4-glow)"><rect x="665" y="300" width="170" height="40" rx="10" fill="#0e1b26" stroke="#38bdf8" stroke-width="2.6"/></g><text x="750" y="325" text-anchor="middle" fill="#9ad6ff" font-weight="700" font-size="13">1 resultado</text>
+            <g fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.7">
+              <path d="M637,192 L735,298" marker-end="url(#m4-ab)"/><path d="M721,192 L748,298" marker-end="url(#m4-ab)"/><path d="M805,192 L765,298" marker-end="url(#m4-ab)"/><path d="M882,192 L775,298" marker-end="url(#m4-ab)"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6"><h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> A escolha em uma frase</h3><p class="text-neutral-300"><strong>Seguir até ser verdade?</strong> → /goal. &nbsp; <strong>Grande demais para uma passada?</strong> → Workflow.</p></div>
+    </section>
+
+    <!-- TÓPICO 2 — /goal a fundo -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">2</span><h2 class="text-2xl font-bold">🪂 /goal = profundidade</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Em um <strong class="text-amber-400">/goal</strong>, mesmo que subagentes apareçam, o coração é um loop que checa um critério de parada — "done = true" — e segue iterando. Pode rodar por horas, se você deixar.</p>
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6"><h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📊</span> Características</h3><ul class="space-y-2 text-neutral-300"><li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Vários turnos/passadas sobre o mesmo objetivo</span></li><li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Critério de parada explícito (senão, loop sem fim)</span></li><li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Ideal para "persiga até atingir X"</span></li></ul></div>
+    </section>
+
+    <!-- TÓPICO 3 — workflow a fundo -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">3</span><h2 class="text-2xl font-bold">↔️ Workflow = largura</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">No <strong class="text-amber-400">workflow</strong> não há loop "até ser verdade". Há um <strong class="text-amber-400">plano</strong> estabelecido no início: cada agente faz sua parte e dispara o resultado. Tudo se mescla numa só saída.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6"><h4 class="font-bold text-emerald-400 mb-3">✓ Bom para</h4><ul class="space-y-3 text-neutral-300"><li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>50+ agentes trabalhando horizontalmente</span></li><li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Cada um numa peça diferente do problema</span></li></ul></div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6"><h4 class="font-bold text-red-400 mb-3">✗ Ruim para</h4><ul class="space-y-3 text-neutral-300"><li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Objetivos que exigem iterar até convergir</span></li><li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Tarefas que precisam de ajuste passo a passo</span></li></ul></div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 — deep research (SVG fan-out) -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">4</span><h2 class="text-2xl font-bold">🔬 /deep-research é um workflow</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Você já tem um workflow embutido: <strong class="text-amber-400">/deep-research</strong>. Ele dispara vários agentes que pesquisam em paralelo, <strong class="text-amber-400">votam em cada alegação</strong> e devolvem um relatório com fontes.</p>
+      <div class="rounded-2xl border border-dark-600 bg-dark-900/40 p-4 mb-6 overflow-hidden">
+        <svg viewBox="0 0 1000 300" class="w-full h-auto" role="img" aria-label="Sua pergunta vira várias buscas paralelas que convergem num relatório citado">
+          <defs>
+            <marker id="m4d-ab" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"/></marker>
+            <marker id="m4d-ag" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#34d399"/></marker>
+            <filter id="m4d-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <g filter="url(#m4d-glow)"><rect x="40" y="113" width="160" height="74" rx="14" fill="#0e1b26" stroke="#38bdf8" stroke-width="2.6"/></g>
+          <text x="120" y="146" text-anchor="middle" fill="#9ad6ff" font-family="Inter,sans-serif" font-weight="700" font-size="15">SUA</text>
+          <text x="120" y="168" text-anchor="middle" fill="#bfe6ff" font-family="Inter,sans-serif" font-size="13">pergunta</text>
+          <g font-family="Inter,sans-serif" font-size="12.5" fill="#86efac" text-anchor="middle" font-weight="600">
+            <g class="wf-a"><rect x="445" y="14"  width="130" height="40" rx="10" fill="#0e2018" stroke="#34d399" stroke-width="2"/><text x="510" y="39">busca</text></g>
+            <g class="wf-a"><rect x="445" y="74"  width="130" height="40" rx="10" fill="#0e2018" stroke="#34d399" stroke-width="2"/><text x="510" y="99">busca</text></g>
+            <g class="wf-a"><rect x="445" y="134" width="130" height="40" rx="10" fill="#0e2018" stroke="#34d399" stroke-width="2"/><text x="510" y="159">busca</text></g>
+            <g class="wf-a"><rect x="445" y="194" width="130" height="40" rx="10" fill="#0e2018" stroke="#34d399" stroke-width="2"/><text x="510" y="219">busca</text></g>
+            <g class="wf-a"><rect x="445" y="254" width="130" height="40" rx="10" fill="#0e2018" stroke="#34d399" stroke-width="2"/><text x="510" y="279">busca</text></g>
+          </g>
+          <g fill="none" stroke="#38bdf8" stroke-width="2.2" opacity="0.65">
+            <path d="M200,140 C320,100 350,40 442,34" marker-end="url(#m4d-ab)"/>
+            <path d="M200,145 C320,135 350,95 442,94" marker-end="url(#m4d-ab)"/>
+            <path d="M200,150 L442,154" marker-end="url(#m4d-ab)"/>
+            <path d="M200,155 C320,165 350,205 442,214" marker-end="url(#m4d-ab)"/>
+            <path d="M200,160 C320,200 350,260 442,274" marker-end="url(#m4d-ab)"/>
+          </g>
+          <g fill="none" stroke="#34d399" stroke-width="2.2" opacity="0.65">
+            <path d="M575,34  C690,64 710,110 812,144" marker-end="url(#m4d-ag)"/>
+            <path d="M575,94  C680,110 710,128 812,150" marker-end="url(#m4d-ag)"/>
+            <path d="M575,154 L812,153" marker-end="url(#m4d-ag)"/>
+            <path d="M575,214 C680,198 710,180 812,162" marker-end="url(#m4d-ag)"/>
+            <path d="M575,274 C690,244 710,198 812,168" marker-end="url(#m4d-ag)"/>
+          </g>
+          <g filter="url(#m4d-glow)"><rect x="812" y="113" width="160" height="74" rx="14" fill="#1f1604" stroke="#fbbf24" stroke-width="2.6"/></g>
+          <text x="892" y="146" text-anchor="middle" fill="#fbbf24" font-family="Inter,sans-serif" font-weight="700" font-size="15">relatório</text>
+          <text x="892" y="168" text-anchor="middle" fill="#fcd9a0" font-family="Inter,sans-serif" font-size="13">com fontes</text>
+        </svg>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6"><h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> O jeito mais fácil de experimentar</h3><p class="text-neutral-300">Quer ver um workflow rodando sem escrever nada? Rode um <strong>/deep-research</strong> com escopo apertado e abra o <strong>/workflows</strong> para acompanhar o fan-out.</p></div>
+    </section>
+
+    <!-- TÓPICO 5 — votação -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">5</span><h2 class="text-2xl font-bold">🗳️ Verificação adversarial</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Em vez de confiar numa única saída, vários agentes <strong class="text-amber-400">checam a mesma alegação e votam</strong>. O que sobrevive entra no relatório. É o padrão que aumenta a confiança em jobs grandes — e é exatamente como o relatório-base deste curso foi verificado.</p>
+      <div class="space-y-6 mb-6">
+        <div class="flex items-start space-x-4"><div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">1</span></div><div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600"><h4 class="font-semibold text-white mb-2">Extrair alegações</h4><p class="text-neutral-300 text-sm">Cada agente coleta afirmações das fontes.</p></div></div>
+        <div class="flex items-start space-x-4"><div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">2</span></div><div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600"><h4 class="font-semibold text-white mb-2">Votar por alegação</h4><p class="text-neutral-300 text-sm">Vários verificadores independentes confirmam ou refutam.</p></div></div>
+        <div class="flex items-start space-x-4"><div class="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center"><span class="text-amber-400 font-bold">3</span></div><div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600"><h4 class="font-semibold text-white mb-2">Sintetizar com fontes</h4><p class="text-neutral-300 text-sm">Só o que passou na votação entra no relatório citado.</p></div></div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 — combinar -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6"><span class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xl">6</span><h2 class="text-2xl font-bold">🧪 Combinar largura e profundidade</h2></div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">Dá para aninhar um <strong class="text-amber-400">workflow dentro de um /goal</strong> — largura dentro de profundidade. É muito poderoso e, justamente por isso, um jeito fácil de queimar dinheiro com autonomia demais.</p>
+      <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6"><h3 class="text-lg font-semibold text-red-400 mb-3 flex items-center"><span class="mr-2">⚠️</span> Cuidado com o nível de autonomia</h3><p class="text-neutral-300">Um /goal que dispara workflows a cada turno pode rodar muito tempo e consumir muito. Use limites de escopo e modelo bem explícitos antes de combinar os dois.</p></div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-amber-900/40 via-dark-800 to-dark-800 rounded-xl border border-amber-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">📌</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-white">/goal</strong><span class="text-neutral-400"> — profundidade: 1 agente em loop até done=true.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-white">Workflow</strong><span class="text-neutral-400"> — largura: N agentes paralelos, plano fixo, 1 resultado.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-white">/deep-research</strong><span class="text-neutral-400"> — workflow pronto: busca paralela + votação + relatório citado.</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-amber-400 mt-1">✓</span><div><strong class="text-white">Combinar</strong><span class="text-neutral-400"> — workflow dentro de /goal é poderoso e arriscado no custo.</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8"><h3 class="font-semibold text-amber-400 mb-2">Próximo Módulo:</h3><p class="text-neutral-300">4.5 — Custo, operação e UltraCode</p></div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para Trilha</a>
+          <a href="modulo-4-5.html" class="flex-1 text-center px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm"><p>Dominando o Claude Opus 4.8 · Módulo 4.4 · INEMA.CLUB · 2026</p></div></footer>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const d = document.getElementById('theme-toggle-dark-icon'); const l = document.getElementById('theme-toggle-light-icon'); const html = document.documentElement;
+    if (localStorage.getItem('theme')==='light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) { d.classList.remove('hidden'); html.classList.remove('dark'); } else { l.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => { d.classList.toggle('hidden'); l.classList.toggle('hidden'); html.classList.toggle('dark'); localStorage.setItem('theme', html.classList.contains('dark')?'dark':'light'); });
+  </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 4.6 · Exercícios | Opus 4.8</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-amber-400 { color: #92400e; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(217,119,6,0.14); }
+    html:not(.dark) .bg-amber-500\/10 { background-color: rgba(217,119,6,0.09); }
+    html:not(.dark) .bg-amber-900\/20 { background-color: rgba(217,119,6,0.09); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(217,119,6,0.28); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    .dark .border-dark-600 { border-color: #374151; }
+    details > summary { list-style: none; cursor: pointer; }
+    details > summary::-webkit-details-marker { display: none; }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between items-center h-14">
+      <div class="flex items-center space-x-4">
+        <a href="../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300"><span class="text-2xl">🤖</span><span class="font-bold text-lg hidden sm:inline">Opus 4.8</span></a>
+        <span class="text-neutral-600">|</span>
+        <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+      </div>
+      <div class="flex items-center space-x-1 sm:space-x-2">
+        <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Capacidades</span></a>
+        <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">O que mudou</span></a>
+        <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Na prática</span></a>
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-amber-400 bg-amber-500/10"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Fluxos Dinâmicos</span></a>
+        <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+        </button>
+      </div>
+    </div></div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../index.html" class="hover:text-amber-400">Início</a><span>/</span>
+      <a href="index.html" class="hover:text-amber-400">Trilha 4</a><span>/</span><span class="text-amber-400">Módulo 4.6</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-amber-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full mb-4">MÓDULO 4.6</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">✏️ Exercícios</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Fixe os conceitos da trilha. Leia cada situação, decida sua resposta e só então abra o gabarito comentado.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">6</div><div class="text-xs text-neutral-400">Exercícios</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">30</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Inter.</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Prática</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- fluxo de decisão (SVG) -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-6">🧭 Antes de começar: o fluxo de decisão</h2>
+      <div class="rounded-2xl border border-dark-600 bg-dark-900/40 p-4 overflow-hidden">
+        <svg viewBox="0 0 1000 200" class="w-full h-auto" role="img" aria-label="Fluxo: quebra em peças paralelas? Não vai para os degraus baixos; sim vai para workflow; precisa loop até done vai para goal">
+          <defs><marker id="m6-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#fbbf24"/></marker></defs>
+          <g font-family="Inter,sans-serif">
+            <rect x="30" y="76" width="230" height="56" rx="13" fill="#1f1604" stroke="#fbbf24" stroke-width="2.4"/><text x="145" y="100" text-anchor="middle" fill="#fbbf24" font-weight="700" font-size="14">Quebra em peças</text><text x="145" y="120" text-anchor="middle" fill="#fcd9a0" font-size="13">paralelas?</text>
+            <path d="M260,90 L360,50" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#m6-ah)"/>
+            <path d="M260,118 L360,158" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#m6-ah)"/>
+            <text x="300" y="50" fill="#34d399" font-size="12" font-weight="700">sim</text>
+            <text x="300" y="170" fill="#f87171" font-size="12" font-weight="700">não</text>
+            <rect x="368" y="26" width="200" height="50" rx="12" fill="#0e2018" stroke="#34d399" stroke-width="2.2"/><text x="468" y="56" text-anchor="middle" fill="#6ee7b7" font-weight="700" font-size="14">Workflow</text>
+            <rect x="368" y="132" width="200" height="50" rx="12" fill="#26201a" stroke="#9ca3af" stroke-width="2.2"/><text x="468" y="162" text-anchor="middle" fill="#e5e7eb" font-weight="700" font-size="13">Degraus baixos</text>
+            <path d="M568,51 L668,51" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#m6-ah)"/>
+            <text x="600" y="40" fill="#bfe6ff" font-size="11">loop até done?</text>
+            <rect x="676" y="26" width="150" height="50" rx="12" fill="#0e1b26" stroke="#38bdf8" stroke-width="2.2"/><text x="751" y="56" text-anchor="middle" fill="#9ad6ff" font-weight="700" font-size="14">/goal</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <h2 class="text-2xl font-bold mb-6">Conteúdo detalhado</h2>
+
+    <!-- EXERCÍCIO 1 -->
+    <section class="mb-6">
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+        <div class="flex items-start space-x-4 mb-4"><span class="flex items-center justify-center w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 font-bold flex-shrink-0">1</span><div><h3 class="font-bold text-lg mb-1">Skill, Subagent, Agent Team ou Workflow?</h3><p class="text-neutral-300 text-sm">Classifique: (a) repetir sempre o mesmo procedimento de release; (b) três especialistas debatendo a arquitetura; (c) buscar uma referência sem sujar a conversa; (d) revisar 300 arquivos por uma regra.</p></div></div>
+        <details class="bg-dark-700/40 rounded-lg p-4 border border-dark-600"><summary class="text-amber-400 font-semibold">Ver resposta →</summary><div class="mt-3 text-neutral-300 text-sm space-y-1"><p>(a) <strong>Skill</strong> — procedimento reutilizável. (b) <strong>Agent Team</strong> — precisam conversar. (c) <strong>Subagent</strong> — tarefa lateral solo. (d) <strong>Workflow</strong> — muitas peças independentes em paralelo.</p></div></details>
+      </div>
+    </section>
+
+    <!-- EXERCÍCIO 2 -->
+    <section class="mb-6">
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+        <div class="flex items-start space-x-4 mb-4"><span class="flex items-center justify-center w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 font-bold flex-shrink-0">2</span><div><h3 class="font-bold text-lg mb-1">Reduza a conta</h3><p class="text-neutral-300 text-sm">Reescreva este prompt vago aplicando as 3 regras: <em>"Melhore a segurança do meu projeto."</em></p></div></div>
+        <details class="bg-dark-700/40 rounded-lg p-4 border border-dark-600"><summary class="text-amber-400 font-semibold">Ver resposta →</summary><div class="mt-3 text-neutral-300 text-sm space-y-1"><p>Exemplo: <span class="font-mono">"Cheque cada arquivo em <code>src/routes/</code> por endpoints sem verificação de auth. 1 agente Haiku por arquivo. Devolva uma tabela arquivo → risco → linha."</span> — escopo (src/routes), entregável (tabela), modelo barato (Haiku).</p></div></details>
+      </div>
+    </section>
+
+    <!-- EXERCÍCIO 3 -->
+    <section class="mb-6">
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+        <div class="flex items-start space-x-4 mb-4"><span class="flex items-center justify-center w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 font-bold flex-shrink-0">3</span><div><h3 class="font-bold text-lg mb-1">/goal ou Workflow?</h3><p class="text-neutral-300 text-sm">(a) "Continue ajustando o CSS até o teste visual passar." (b) "Resuma cada um dos 60 PDFs desta pasta."</p></div></div>
+        <details class="bg-dark-700/40 rounded-lg p-4 border border-dark-600"><summary class="text-amber-400 font-semibold">Ver resposta →</summary><div class="mt-3 text-neutral-300 text-sm space-y-1"><p>(a) <strong>/goal</strong> — loop até um critério ("teste passar") = profundidade. (b) <strong>Workflow</strong> — 60 peças independentes em paralelo = largura.</p></div></details>
+      </div>
+    </section>
+
+    <!-- EXERCÍCIO 4 -->
+    <section class="mb-6">
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+        <div class="flex items-start space-x-4 mb-4"><span class="flex items-center justify-center w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 font-bold flex-shrink-0">4</span><div><h3 class="font-bold text-lg mb-1">Projete um workflow</h3><p class="text-neutral-300 text-sm">Esboce as fases (fan-out → merge) para: "auditar a qualidade das descrições de todas as minhas 40 skills".</p></div></div>
+        <details class="bg-dark-700/40 rounded-lg p-4 border border-dark-600"><summary class="text-amber-400 font-semibold">Ver resposta →</summary><div class="mt-3 text-neutral-300 text-sm space-y-1"><p><strong>Fase 1 (fan-out):</strong> 1 agente Haiku por skill, pontuando clareza/trigger. <strong>Fase 2 (merge/síntese):</strong> 1 agente Opus ranqueia pior→melhor e aponta o conserto de maior valor. Entregável: scorecard. É exatamente o caso do vídeo.</p></div></details>
+      </div>
+    </section>
+
+    <!-- EXERCÍCIO 5 -->
+    <section class="mb-6">
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+        <div class="flex items-start space-x-4 mb-4"><span class="flex items-center justify-center w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 font-bold flex-shrink-0">5</span><div><h3 class="font-bold text-lg mb-1">Experimente o /deep-research</h3><p class="text-neutral-300 text-sm">Escreva uma pergunta de pesquisa com escopo apertado o suficiente para um /deep-research barato. O que você observaria no /workflows?</p></div></div>
+        <details class="bg-dark-700/40 rounded-lg p-4 border border-dark-600"><summary class="text-amber-400 font-semibold">Ver resposta →</summary><div class="mt-3 text-neutral-300 text-sm space-y-1"><p>Pergunta apertada: limite tema, período e formato de saída (ex.: "Compare preços de entrada/saída do Opus 4.6, 4.7 e 4.8; tabela com fontes oficiais"). No /workflows você veria várias buscas paralelas e a votação por alegação antes da síntese.</p></div></details>
+      </div>
+    </section>
+
+    <!-- EXERCÍCIO 6 -->
+    <section class="mb-6">
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+        <div class="flex items-start space-x-4 mb-4"><span class="flex items-center justify-center w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 font-bold flex-shrink-0">6</span><div><h3 class="font-bold text-lg mb-1">Vale ou é overkill?</h3><p class="text-neutral-300 text-sm">(a) corrigir um typo num README; (b) migrar 400 arquivos de uma lib antiga para a nova API. Aplique a pergunta-chave.</p></div></div>
+        <details class="bg-dark-700/40 rounded-lg p-4 border border-dark-600"><summary class="text-amber-400 font-semibold">Ver resposta →</summary><div class="mt-3 text-neutral-300 text-sm space-y-1"><p>(a) <strong>Overkill</strong> — uma edição; um agente segura. (b) <strong>Workflow</strong> — quebra em 400 peças paralelas, com isolamento por arquivo e verificação. "Quebra em peças paralelas?" → não / sim.</p></div></details>
+      </div>
+    </section>
+
+    <div class="flex flex-col sm:flex-row gap-4 mt-10">
+      <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para Trilha</a>
+      <a href="modulo-4-7.html" class="flex-1 text-center px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors">Próximo: Prompts prontos →</a>
+    </div>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-8"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm"><p>Dominando o Claude Opus 4.8 · Módulo 4.6 · INEMA.CLUB · 2026</p></div></footer>
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const d = document.getElementById('theme-toggle-dark-icon'); const l = document.getElementById('theme-toggle-light-icon'); const html = document.documentElement;
+    if (localStorage.getItem('theme')==='light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) { d.classList.remove('hidden'); html.classList.remove('dark'); } else { l.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => { d.classList.toggle('hidden'); l.classList.toggle('hidden'); html.classList.toggle('dark'); localStorage.setItem('theme', html.classList.contains('dark')?'dark':'light'); });
+  </script>
+</body>
+</html>
